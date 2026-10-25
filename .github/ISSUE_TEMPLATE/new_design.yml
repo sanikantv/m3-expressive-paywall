@@ -1,0 +1,11 @@
+name: New paywall design
+description: Suggest a paywall layout you would like to see
+labels: [design-request]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Describe the design
+      description: Link a reference (Mobbin, Dribbble, an app) and say which Expressive components it should use.
+    validations:
+      required: true

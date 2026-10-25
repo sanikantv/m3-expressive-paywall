@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand purple used by the launcher icon and the splash screen. -->
+    <color name="brand_purple">#FF6750A4</color>
+    <color name="window_light">#FFFEF7FF</color>
+    <color name="window_dark">#FF141218</color>
+</resources>

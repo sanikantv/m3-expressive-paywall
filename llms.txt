@@ -1,0 +1,31 @@
+# M3 Expressive Paywall
+
+> 6 ready-to-use Material 3 Expressive paywall screens for Jetpack Compose (Android). Billing-agnostic: each paywall takes a list of `PaywallPlan`s plus `onPurchase`, `onRestore` and `onClose` callbacks. Every screen shows the price, billing period, trial terms, a Restore button and Terms/Privacy links, as Google Play requires. Built on androidx.compose.material3 1.5.0-beta02, minSdk 26, MIT license.
+
+Install: JitPack `com.github.sanikantv:paywall:1.0.0` (add `maven("https://jitpack.io")`). Requires compileSdk 37.
+
+## Docs
+
+- [Paywall catalog](https://github.com/sanikantv/m3-expressive-paywall/blob/main/docs/PAYWALL_CATALOG.md): when to use each design, signatures, Expressive APIs used, prompts
+- [README](https://github.com/sanikantv/m3-expressive-paywall/blob/main/README.md): setup, usage, Play Billing and RevenueCat mapping, compliance checklist
+
+## Public API (package dev.sanikant.m3.paywall)
+
+- [PaywallModels.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/PaywallModels.kt): PaywallPlan, PaywallFeature, PaywallLegal, ComparisonRow, TrialStep, BenefitPage
+- [ClassicPlansPaywall.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/ClassicPlansPaywall.kt): hero + plan cards + features
+- [ComparisonPaywall.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/ComparisonPaywall.kt): Free vs Pro table
+- [TrialTimelinePaywall.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/TrialTimelinePaywall.kt): Today / reminder / billing timeline
+- [PlanPickerPaywall.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/PlanPickerPaywall.kt): ButtonGroup + ToggleButton + morphing card
+- [LimitedOfferSheet.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/LimitedOfferSheet.kt): discount bottom sheet, countdown, LinearWavyProgressIndicator
+- [OnboardingPaywall.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/OnboardingPaywall.kt): benefits pager ending in plans
+- [PaywallIcons.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/PaywallIcons.kt): bundled Material icons
+
+## Shared internals
+
+- [internal/PaywallParts.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/internal/PaywallParts.kt): PlanCard, PlanTile, MorphRadio, ExpressiveCta, ComplianceFooter
+- [internal/MorphShape.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/internal/MorphShape.kt): Morph-based Shape and rememberMorphingShape
+- [internal/PaywallScaffold.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/paywall/src/main/java/dev/sanikant/m3/paywall/internal/PaywallScaffold.kt): edge-to-edge frame with sticky bottom bar
+
+## Optional
+
+- [Demo app](https://github.com/sanikantv/m3-expressive-paywall/tree/main/app/src/main/java/dev/sanikant/m3/paywall/demo): MaterialExpressiveTheme with dynamic color, gallery, predictive back, fake data

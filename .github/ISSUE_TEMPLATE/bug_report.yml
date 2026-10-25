@@ -1,0 +1,23 @@
+name: Bug report
+description: Something looks or behaves wrong in a paywall
+labels: [bug]
+body:
+  - type: dropdown
+    id: design
+    attributes:
+      label: Which paywall?
+      options: [Classic plans, Free vs Pro, Trial timeline, Plan picker, Limited-time offer, Onboarding end, Demo app]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Add a screenshot if you can.
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: "library 1.0.0, material3 1.5.0-beta02, Android 16"

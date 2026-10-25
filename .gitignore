@@ -1,0 +1,39 @@
+# --- AI tooling (never push these) ---
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.cursor/
+.cursorrules
+.codex/
+AGENTS.md
+
+# --- Gradle / build ---
+*.iml
+.gradle/
+build/
+/local.properties
+local.properties
+/captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+!art/**
+
+# --- Android Studio / IntelliJ ---
+.idea/
+*.hprof
+.kotlin/
+
+# --- Signing and secrets (keep keys out of git) ---
+*.jks
+*.keystore
+keystore.properties
+google-services.json
+GoogleService-Info.plist
+.env
+secrets.properties
+
+# --- OS ---
+.DS_Store
+Thumbs.db

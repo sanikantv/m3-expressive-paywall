@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>M3 Expressive Paywall social preview</title>
+<!-- Rendered to art/social-preview.png (1280x640) by scripts/render_social.sh -->
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 640px; overflow: hidden; }
+  body {
+    font-family: "Google Sans", "Roboto", system-ui, -apple-system, sans-serif;
+    background: #FEF7FF;
+    position: relative;
+  }
+  .blob { position: absolute; border-radius: 42% 58% 61% 39% / 45% 41% 59% 55%; }
+  .b1 { width: 620px; height: 620px; background: #EADDFF; right: -120px; top: -140px; }
+  .b2 { width: 260px; height: 260px; background: #FFD8E4; right: 430px; bottom: -150px; }
+  .copy { position: absolute; left: 72px; top: 92px; width: 520px; }
+  .icon { width: 96px; height: 96px; border-radius: 24px; display: block; margin-bottom: 32px; }
+  h1 { font-size: 64px; line-height: 1.02; margin: 0 0 20px; color: #1D1B20; letter-spacing: -1.5px; }
+  p { font-size: 26px; line-height: 1.35; margin: 0 0 28px; color: #49454F; }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip { font-size: 18px; padding: 8px 16px; border-radius: 999px; background: #6750A4; color: #fff; }
+  .chip.alt { background: #E8DEF8; color: #1D192B; }
+  .phones { position: absolute; right: 40px; top: 40px; width: 640px; height: 600px; }
+  .phone { position: absolute; width: 236px; border-radius: 30px; border: 6px solid #1D1B20;
+           box-shadow: 0 24px 48px rgba(29,27,32,.22); }
+  .p1 { left: 0; top: 70px; transform: rotate(-8deg); }
+  .p2 { left: 200px; top: 10px; z-index: 2; }
+  .p3 { left: 400px; top: 70px; transform: rotate(8deg); }
+</style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="copy">
+    <img class="icon" src="icon/icon-rounded-512.png" alt="">
+    <h1>M3 Expressive Paywall</h1>
+    <p>6 ready-to-use Material 3 Expressive paywalls for Jetpack Compose. Bring your own billing.</p>
+    <div class="chips">
+      <span class="chip">Jetpack Compose</span>
+      <span class="chip alt">Light &amp; dark</span>
+      <span class="chip alt">Play-compliant</span>
+    </div>
+  </div>
+  <div class="phones">
+    <img class="phone p1" src="screenshots/02-comparison-light.png" alt="">
+    <img class="phone p2" src="screenshots/04-picker-light.png" alt="">
+    <img class="phone p3" src="screenshots/05-offer-dark.png" alt="">
+  </div>
+</body>
+</html>
