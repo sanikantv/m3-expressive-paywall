@@ -34,7 +34,7 @@ fun DemoSettings.isDark(): Boolean = when (themeMode) {
 
 /**
  * Material 3 Expressive theme: wallpaper colors on Android 12+, the baseline purple scheme
- * otherwise, and the spring-based expressive motion scheme.
+ * otherwise, Google Sans Flex type and the spring-based expressive motion scheme.
  */
 @Composable
 fun M3ExpressivePaywallTheme(
@@ -54,6 +54,7 @@ fun M3ExpressivePaywallTheme(
     MaterialExpressiveTheme(
         colorScheme = colorScheme,
         motionScheme = if (settings.expressiveMotion) MotionScheme.expressive() else MotionScheme.standard(),
+        typography = AppTypography,
         content = content,
     )
 }

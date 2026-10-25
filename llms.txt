@@ -28,4 +28,5 @@ Install: JitPack `com.github.sanikantv:paywall:1.0.0` (add `maven("https://jitpa
 
 ## Optional
 
+- [Type.kt](https://github.com/sanikantv/m3-expressive-paywall/blob/main/app/src/main/java/dev/sanikant/m3/paywall/demo/ui/theme/Type.kt): Google Sans Flex variable font as the Material 3 type scale
 - [Demo app](https://github.com/sanikantv/m3-expressive-paywall/tree/main/app/src/main/java/dev/sanikant/m3/paywall/demo): MaterialExpressiveTheme with dynamic color, gallery, predictive back, fake data

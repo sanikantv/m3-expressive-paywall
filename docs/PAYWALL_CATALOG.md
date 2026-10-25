@@ -218,12 +218,14 @@ onboarding complete and go to Home."*
 
 ## Theming
 
-Wrap your app in `MaterialExpressiveTheme` to get the expressive motion and type:
+Wrap your app in `MaterialExpressiveTheme` to get the expressive motion and type. The paywalls
+read `MaterialTheme.typography`, so your font applies automatically. The demo uses Google Sans Flex:
 
 ```kotlin
 MaterialExpressiveTheme(
     colorScheme = if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context),
     motionScheme = MotionScheme.expressive(),
+    typography = Typography(GoogleSansFlex), // FontFamily built from res/font/google_sans_flex.ttf
 ) { AppContent() }
 ```
 

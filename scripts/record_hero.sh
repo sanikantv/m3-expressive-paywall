@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Records the README hero clip on a 1080x2400 emulator and converts it to art/hero.gif + art/hero.mp4.
 #   ANDROID_SERIAL=emulator-5554 ./scripts/record_hero.sh
-# Tap coordinates match the Medium Phone AVD (1080x2400, 420 dpi) in light mode.
+# Taps find elements by their text with uiautomator, so layout or font changes don't break it.
 set -euo pipefail
 
 ADB="${ADB:-$HOME/Library/Android/sdk/platform-tools/adb}"
@@ -20,24 +20,50 @@ demo network -e mobile hide
 demo notifications -e visible false
 "$ADB" shell cmd uimode night no >/dev/null
 
-"$ADB" shell am force-stop "$PKG"
-"$ADB" shell am start -n "$PKG/.MainActivity" --ez dynamic false >/dev/null
-sleep 3
+launch() {
+  "$ADB" shell am force-stop "$PKG"
+  "$ADB" shell am start -n "$PKG/.MainActivity" --ez dynamic false >/dev/null
+  sleep 3
+}
+scroll_gallery() { "$ADB" shell input swipe 540 1900 540 1100 700; sleep 1.2; }
 
+# Center of the first on-screen element whose text matches exactly, e.g. center "Plan picker".
+# uiautomator is slow, so a dry run collects every position before recording starts.
+center() {
+  "$ADB" shell uiautomator dump /sdcard/ui.xml >/dev/null
+  "$ADB" exec-out cat /sdcard/ui.xml | python3 -c '
+import re, sys
+xml, want = sys.stdin.read(), sys.argv[1]
+for m in re.finditer(r"text=\"([^\"]*)\"[^>]*?bounds=\"\[(\d+),(\d+)\]\[(\d+),(\d+)\]\"", xml):
+    if m.group(1) == want:
+        x1, y1, x2, y2 = map(int, m.groups()[1:])
+        print((x1 + x2) // 2, (y1 + y2) // 2)
+        break
+else:
+    sys.exit("not on screen: " + want)
+' "$1"
+}
+
+launch; scroll_gallery
+PICKER=$(center "Plan picker"); OFFER=$(center "Limited-time offer"); COMPARE=$(center "Free vs Pro")
+"$ADB" shell input tap $PICKER; sleep 1.5
+MONTHLY=$(center "Monthly"); LIFETIME=$(center "Lifetime"); YEARLY=$(center "Yearly")
+
+tap() { "$ADB" shell input tap $1; sleep "$2"; }
+launch
 "$ADB" shell rm -f /sdcard/hero.mp4
-"$ADB" shell screenrecord --time-limit 26 --bit-rate 8000000 /sdcard/hero.mp4 &
+"$ADB" shell screenrecord --time-limit 22 --bit-rate 8000000 /sdcard/hero.mp4 &
 REC=$!
 sleep 1.5
-tap() { "$ADB" shell input tap "$1" "$2"; sleep "$3"; }
-"$ADB" shell input swipe 540 1900 540 900 700; sleep 1.2   # scroll the gallery, app bar collapses
-tap 540 1363 1.8                                           # open Plan picker
-tap 218 546 1.4                                            # Monthly
-tap 860 546 1.4                                            # Lifetime
-tap 540 546 1.8                                            # Yearly
-"$ADB" shell input swipe 2 1200 640 1200 600; sleep 1.6    # predictive back gesture
-tap 540 1786 4.0                                           # open Limited-time offer sheet
-"$ADB" shell input swipe 540 1000 540 2350 250; sleep 1.4  # swipe the sheet away
-tap 540 517 3.0                                            # open Free vs Pro
+scroll_gallery                                              # app bar collapses
+tap "$PICKER" 1.8                                           # open Plan picker
+tap "$MONTHLY" 1.4
+tap "$LIFETIME" 1.4
+tap "$YEARLY" 1.8
+"$ADB" shell input swipe 2 1200 640 1200 600; sleep 1.6     # predictive back gesture
+tap "$OFFER" 4.0                                            # Limited-time offer sheet
+"$ADB" shell input swipe 540 1000 540 2350 250; sleep 1.6   # swipe the sheet away
+tap "$COMPARE" 3.0                                          # Free vs Pro
 wait "$REC" || true
 "$ADB" pull /sdcard/hero.mp4 "$TMP/raw.mp4" >/dev/null
 demo exit

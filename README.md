@@ -21,7 +21,8 @@
 
 Copy-paste paywall screens built with the newest **Material 3 Expressive** APIs: `ButtonGroup`,
 `ToggleButton`, `MaterialShapes` with shape morphing, `LinearWavyProgressIndicator`,
-`MotionScheme.expressive()` springs and the emphasized type scale. Every screen works in light
+`MotionScheme.expressive()` springs and the emphasized type scale, set in **Google Sans Flex**
+in the demo. Every screen works in light
 and dark mode, follows your app's `MaterialTheme` (dynamic color included) and shows everything
 Google Play asks for on a subscription screen.
 
@@ -153,6 +154,24 @@ All six share the same contract:
 Every string has a default in `strings.xml` (prefixed `pw_`) and can be overridden through
 parameters such as `title` and `subtitle`, so the paywalls are ready to translate.
 
+### Fonts
+
+The paywalls use `MaterialTheme.typography`, so they take your app's font. The demo uses
+[Google Sans Flex](https://fonts.google.com/specimen/Google+Sans+Flex), a variable font, for the whole
+Material 3 type scale including the Expressive emphasized styles:
+
+```kotlin
+val GoogleSansFlex = FontFamily(
+    listOf(400, 500, 600, 700, 800, 900).map { weight ->
+        Font(R.font.google_sans_flex, FontWeight(weight), variationSettings = FontVariation.Settings(FontVariation.weight(weight)))
+    },
+)
+
+MaterialExpressiveTheme(typography = Typography(GoogleSansFlex)) { /* paywalls here */ }
+```
+
+See [Type.kt](app/src/main/java/dev/sanikant/m3/paywall/demo/ui/theme/Type.kt).
+
 ## Connect your billing
 
 The library only needs formatted strings, so mapping is a few lines. Two sketches:
@@ -235,6 +254,7 @@ to my app and connect `onPurchase` to my existing BillingRepository."*
 | Android Gradle Plugin | 9.2.1 |
 | compileSdk / targetSdk / minSdk | 37 / 36 / 26 |
 | `androidx.graphics:graphics-shapes` | 1.1.0 |
+| Demo font | Google Sans Flex (variable, SIL OFL 1.1) |
 
 Material 3 Expressive APIs are marked `@ExperimentalMaterial3ExpressiveApi` and can still change
 before `1.5.0` stable. If something does not compile, check your material3 version first.
@@ -265,8 +285,11 @@ of Material 3 Expressive components and full-screen templates.
 - Website: [sanikantkushwaha.com](https://sanikantkushwaha.com/)
 
 Design patterns were researched on Mobbin. No screenshots or assets from other apps are included.
-Icons are Material icons (Apache 2.0).
+Icons are Material icons (Apache 2.0). The demo bundles the unmodified Google Sans Flex font from
+[google/fonts](https://github.com/google/fonts/tree/main/ofl/googlesansflex) under the
+[SIL Open Font License 1.1](licenses/GoogleSansFlex-OFL.txt). "Google Sans Flex" is a trademark of
+Google LLC; this project is not affiliated with or endorsed by Google.
 
 ## License
 
-[MIT](LICENSE) © 2026 Sanikant
+Code: [MIT](LICENSE) © 2026 Sanikant. Font: [SIL OFL 1.1](licenses/GoogleSansFlex-OFL.txt).
