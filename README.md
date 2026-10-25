@@ -98,10 +98,10 @@ dependencyResolutionManagement {
 
 ```toml
 [versions]
-m3Paywall = "1.0.0"
+m3Paywall = "v1.0.0"
 
 [libraries]
-m3-paywall = { module = "com.github.sanikantv:paywall", version.ref = "m3Paywall" }
+m3-paywall = { module = "com.github.sanikantv:m3-expressive-paywall", version.ref = "m3Paywall" }
 ```
 
 ```kotlin

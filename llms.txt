@@ -2,7 +2,7 @@
 
 > 6 ready-to-use Material 3 Expressive paywall screens for Jetpack Compose (Android). Billing-agnostic: each paywall takes a list of `PaywallPlan`s plus `onPurchase`, `onRestore` and `onClose` callbacks. Every screen shows the price, billing period, trial terms, a Restore button and Terms/Privacy links, as Google Play requires. Built on androidx.compose.material3 1.5.0-beta02, minSdk 26, MIT license.
 
-Install: JitPack `com.github.sanikantv:paywall:1.0.0` (add `maven("https://jitpack.io")`). Requires compileSdk 37.
+Install: JitPack `com.github.sanikantv:m3-expressive-paywall:v1.0.0` (add `maven("https://jitpack.io")`). Requires compileSdk 37.
 
 ## Docs
 
