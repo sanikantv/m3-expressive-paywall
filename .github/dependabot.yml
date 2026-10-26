@@ -7,6 +7,12 @@ updates:
     groups:
       androidx:
         patterns: ["androidx.*"]
+    ignore:
+      # The Kotlin version stamps the library's metadata. A newer minor or major would stop apps
+      # on older Kotlin from compiling against it, so those bumps are done by hand with a release
+      # note. Patch updates (2.2.x) still come through.
+      - dependency-name: "org.jetbrains.kotlin*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
