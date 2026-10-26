@@ -1,14 +1,7 @@
 # Build template for sanikantv M3 Expressive repos.
 #
 # - Every push / PR to main: assemble the debug APK and upload it as a workflow artifact.
-# - Every tag v*: also create a GitHub Release with the APK attached, then post to Telegram.
-#
-# Repo secrets needed for the Telegram step (Settings → Secrets → Actions):
-#   TELEGRAM_BOT_TOKEN   token from @BotFather
-#   TELEGRAM_CHAT_ID     channel id, e.g. @Techno_Sanikant or -100xxxxxxxxxx
-# If either secret is missing the Telegram step is skipped, the release still happens.
-#
-# Optional: put a GIF at art/hero.gif — it is attached to the Telegram post.
+# - Every tag v*: also create a GitHub Release with the APK attached.
 
 name: Build
 
@@ -76,19 +69,13 @@ jobs:
           retention-days: 30
 
   release:
-    name: GitHub Release + Telegram
+    name: GitHub Release
     needs: build
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
     steps:
-      - name: Checkout (for art/hero.gif and release notes)
-        uses: actions/checkout@v4
-
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
@@ -99,43 +86,3 @@ jobs:
         with:
           files: ${{ needs.build.outputs.apk_name }}
           generate_release_notes: true
-
-      - name: Post to Telegram
-        if: ${{ env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != '' }}
-        env:
-          REPO: ${{ github.repository }}
-          REPO_NAME: ${{ github.event.repository.name }}
-          TAG: ${{ github.ref_name }}
-          DESCRIPTION: ${{ github.event.repository.description }}
-        run: |
-          set -euo pipefail
-          RELEASE_URL="https://github.com/${REPO}/releases/tag/${TAG}"
-          APK_URL="https://github.com/${REPO}/releases/download/${TAG}/${{ needs.build.outputs.apk_name }}"
-
-          CAPTION=$(cat <<MSG
-          🆕 <b>${REPO_NAME}</b> ${TAG} — Material 3 Expressive
-          ${DESCRIPTION}
-
-          ⭐ <a href="https://github.com/${REPO}">GitHub</a>
-          📲 <a href="${APK_URL}">Demo APK</a>
-          📝 <a href="${RELEASE_URL}">Release notes</a>
-
-          #JetpackCompose #MaterialYou #M3Expressive
-          MSG
-          )
-
-          API="https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}"
-          if [ -f art/hero.gif ]; then
-            curl -sS -f -X POST "${API}/sendAnimation" \
-              -F "chat_id=${TELEGRAM_CHAT_ID}" \
-              -F "animation=@art/hero.gif" \
-              -F "parse_mode=HTML" \
-              -F "caption=${CAPTION}" > /dev/null
-          else
-            curl -sS -f -X POST "${API}/sendMessage" \
-              -F "chat_id=${TELEGRAM_CHAT_ID}" \
-              -F "parse_mode=HTML" \
-              -F "disable_web_page_preview=false" \
-              -F "text=${CAPTION}" > /dev/null
-          fi
-          echo "Posted ${TAG} to Telegram."

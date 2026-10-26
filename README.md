@@ -326,7 +326,6 @@ of Material 3 Expressive components and full-screen templates.
 
 **Sanikant**, Android developer shipping apps on Google Play and the App Store.
 
-- Telegram: [@Techno_Sanikant](https://t.me/Techno_Sanikant), where new templates are posted first
 - YouTube: [@Sanikant_Kushwaha](https://www.youtube.com/@Sanikant_Kushwaha)
 - Website: [sanikantkushwaha.com](https://sanikantkushwaha.com/)
 
