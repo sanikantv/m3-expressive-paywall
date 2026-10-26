@@ -1,0 +1,48 @@
+<template>
+  <style>
+    @font-face { font-family: 'Google Sans Flex'; src: url('assets/fonts/google-sans-flex-latin.woff2') format('woff2'); font-weight: 1 1000; }
+    @font-face { font-family: 'Google Sans Code'; src: url('assets/fonts/GoogleSansCode.ttf') format('truetype'); font-weight: 300 800; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; color: #1d1b20; }
+    .phone { position: absolute; width: 420px; height: 900px; border-radius: 66px; background: #1d1b20; padding: 14px;
+             box-shadow: 0 30px 60px rgba(29, 27, 32, 0.22); }
+    .screen { position: relative; width: 392px; height: 872px; border-radius: 52px; overflow: hidden; background: #fef7ff; }
+    .screen img, .screen video { position: absolute; left: 0; top: 0; width: 392px; height: 872px; object-fit: cover; }
+    .display { font-weight: 700; font-size: 104px; letter-spacing: -0.02em; line-height: 1.04; }
+    .code { font-family: 'Google Sans Code', monospace; font-weight: 500; }
+
+    #hook-bg { position: absolute; inset: 0; background: #f3edf7; }
+    #hook-phone { left: 250px; top: 90px; }
+    #hook-empty { position: absolute; inset: 0; background: #fef7ff; display: flex; align-items: center; justify-content: center; }
+    #hook-slot { width: 300px; height: 360px; border-radius: 40px; border: 5px dashed #cac4d0; }
+    .hook-line { position: absolute; left: 860px; top: 430px; white-space: nowrap; }
+    #hook-isnt { color: #6750a4; }
+
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1920" data-height="1080">
+
+    <div id="hook-bg"></div>
+    <div id="hook-phone" class="phone"><div class="screen">
+      <img src="assets/img/00-gallery-light.png" alt="Demo app gallery" />
+      <div id="hook-empty"><div id="hook-slot"></div></div>
+    </div></div>
+    <div id="hook-ready" class="hook-line display">Your app is ready.</div>
+    <div id="hook-paywall" class="hook-line display">The paywall <span id="hook-isnt">isn't.</span></div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wipeIn = (sel, at, dur = 0.35) =>
+      tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: dur, ease: "power3.out" }, at);
+    const wipeOut = (sel, at, dur = 0.22) =>
+      tl.fromTo(sel, { clipPath: "inset(0 0% 0 0)" }, { clipPath: "inset(0 0% 0 100%)", duration: dur, ease: "power2.in", immediateRender: false }, at);
+
+    tl.fromTo("#hook-phone", { y: 40, scale: 0.96 }, { y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 0);
+    wipeIn("#hook-ready", 0.3, 0.5);                 // "Your" 0.40 … "ready" 1.03
+    wipeOut("#hook-ready", 1.85);
+    wipeIn("#hook-paywall", 2.05);                    // "paywall" 2.13
+    tl.fromTo("#hook-empty", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.4);
+    tl.fromTo("#hook-slot", { scale: 0.7 }, { scale: 1, duration: 0.45, ease: "back.out(1.7)" }, 2.4);
+
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

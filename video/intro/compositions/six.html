@@ -1,0 +1,71 @@
+<template>
+  <style>
+    @font-face { font-family: 'Google Sans Flex'; src: url('assets/fonts/google-sans-flex-latin.woff2') format('woff2'); font-weight: 1 1000; }
+    @font-face { font-family: 'Google Sans Code'; src: url('assets/fonts/GoogleSansCode.ttf') format('truetype'); font-weight: 300 800; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; color: #1d1b20; }
+    .phone { position: absolute; width: 420px; height: 900px; border-radius: 66px; background: #1d1b20; padding: 14px;
+             box-shadow: 0 30px 60px rgba(29, 27, 32, 0.22); }
+    .screen { position: relative; width: 392px; height: 872px; border-radius: 52px; overflow: hidden; background: #fef7ff; }
+    .screen img, .screen video { position: absolute; left: 0; top: 0; width: 392px; height: 872px; object-fit: cover; }
+    .display { font-weight: 700; font-size: 104px; letter-spacing: -0.02em; line-height: 1.04; }
+    .code { font-family: 'Google Sans Code', monospace; font-weight: 500; }
+
+    #six-bg { position: absolute; inset: 0; background: #fef7ff; }
+    #six-strip { position: absolute; left: 0; top: 0; width: 2920px; height: 900px; transform-origin: 0 0; }
+    .six-phone { top: 0; }
+    #six-kicker { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-size: 64px; font-weight: 700; letter-spacing: -0.015em; color: #1d1b20; }
+    #six-kicker span { color: #6750a4; }
+    .six-label { position: absolute; left: 0; right: 0; top: 1004px; text-align: center; font-size: 40px; color: #4a4458; }
+
+  </style>
+  <div id="root" data-composition-id="six" data-width="1920" data-height="1080">
+
+    <div id="six-bg"></div>
+    <div id="six-kicker">6 paywalls · Jetpack Compose · <span>Material 3 Expressive</span></div>
+    <div id="six-strip" data-layout-allow-overflow>
+      <div id="six-p0" class="phone six-phone" style="left:0px"><div class="screen"><img src="assets/img/01-classic-light.png" alt="ClassicPlansPaywall" /></div></div>
+      <div id="six-p1" class="phone six-phone" style="left:500px"><div class="screen"><img src="assets/img/02-comparison-light.png" alt="ComparisonPaywall" /></div></div>
+      <div id="six-p2" class="phone six-phone" style="left:1000px"><div class="screen"><img src="assets/img/03-trial-light.png" alt="TrialTimelinePaywall" /></div></div>
+      <div id="six-p3" class="phone six-phone" style="left:1500px"><div class="screen"><img src="assets/img/04-picker-light.png" alt="PlanPickerPaywall" /><video id="six-picker-video" class="clip" src="assets/video/hero-demo.mp4" data-start="11.15" data-duration="2.2" data-media-start="4.3" data-track-index="2" muted playsinline></video></div></div>
+      <div id="six-p4" class="phone six-phone" style="left:2000px"><div class="screen"><img src="assets/img/05-offer-light.png" alt="LimitedOfferSheet" /></div></div>
+      <div id="six-p5" class="phone six-phone" style="left:2500px"><div class="screen"><img src="assets/img/06-onboarding-light.png" alt="OnboardingPaywall" /></div></div>
+    </div>
+    <div id="six-l0" class="six-label code">ClassicPlansPaywall</div>
+    <div id="six-l1" class="six-label code">ComparisonPaywall</div>
+    <div id="six-l2" class="six-label code">TrialTimelinePaywall</div>
+    <div id="six-l3" class="six-label code">PlanPickerPaywall</div>
+    <div id="six-l4" class="six-label code">LimitedOfferSheet</div>
+    <div id="six-l5" class="six-label code">OnboardingPaywall</div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wipeIn = (sel, at, dur = 0.35) =>
+      tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: dur, ease: "power3.out" }, at);
+    const wipeOut = (sel, at, dur = 0.22) =>
+      tl.fromTo(sel, { clipPath: "inset(0 0% 0 0)" }, { clipPath: "inset(0 0% 0 100%)", duration: dur, ease: "power2.in", immediateRender: false }, at);
+    tl.fromTo("#six-strip", { x: 346.8, y: 330, scale: 0.42 }, { x: 346.8, y: 330, scale: 0.42, duration: 0.01 }, 0);
+    tl.fromTo(".six-phone", { y: 160, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "back.out(1.6)", stagger: 0.07 }, 0.15);  // "Six" 15.59
+    wipeIn("#six-kicker", 1.0, 0.45);
+    tl.to("#six-strip", { x: 273.8, y: 310, scale: 0.47, duration: 4.4, ease: "sine.inOut" }, 0.9);
+    wipeOut("#six-kicker", 5.5);
+    tl.to("#six-strip", { x: 750, y: 90, scale: 1, duration: 0.55, ease: "expo.inOut" }, 5.55);
+    wipeIn("#six-l0", 6.00);
+    tl.to("#six-strip", { x: 250, y: 90, scale: 1, duration: 0.55, ease: "expo.inOut" }, 7.30);
+    wipeOut("#six-l0", 7.30);
+    wipeIn("#six-l1", 7.75);
+    tl.to("#six-strip", { x: -250, y: 90, scale: 1, duration: 0.55, ease: "expo.inOut" }, 9.25);
+    wipeOut("#six-l1", 9.25);
+    wipeIn("#six-l2", 9.70);
+    tl.to("#six-strip", { x: -750, y: 90, scale: 1, duration: 0.55, ease: "expo.inOut" }, 10.85);
+    wipeOut("#six-l2", 10.85);
+    wipeIn("#six-l3", 11.30);
+    tl.to("#six-strip", { x: -1250, y: 90, scale: 1, duration: 0.55, ease: "expo.inOut" }, 12.95);
+    wipeOut("#six-l3", 12.95);
+    wipeIn("#six-l4", 13.40);
+    tl.to("#six-strip", { x: -1750, y: 90, scale: 1, duration: 0.55, ease: "expo.inOut" }, 14.85);
+    wipeOut("#six-l4", 14.85);
+    wipeIn("#six-l5", 15.30);
+    window.__timelines["six"] = tl;
+  </script>
+</template>

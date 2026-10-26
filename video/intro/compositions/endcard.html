@@ -1,0 +1,47 @@
+<template>
+  <style>
+    @font-face { font-family: 'Google Sans Flex'; src: url('assets/fonts/google-sans-flex-latin.woff2') format('woff2'); font-weight: 1 1000; }
+    @font-face { font-family: 'Google Sans Code'; src: url('assets/fonts/GoogleSansCode.ttf') format('truetype'); font-weight: 300 800; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; color: #1d1b20; }
+    .phone { position: absolute; width: 420px; height: 900px; border-radius: 66px; background: #1d1b20; padding: 14px;
+             box-shadow: 0 30px 60px rgba(29, 27, 32, 0.22); }
+    .screen { position: relative; width: 392px; height: 872px; border-radius: 52px; overflow: hidden; background: #fef7ff; }
+    .screen img, .screen video { position: absolute; left: 0; top: 0; width: 392px; height: 872px; object-fit: cover; }
+    .display { font-weight: 700; font-size: 104px; letter-spacing: -0.02em; line-height: 1.04; }
+    .code { font-family: 'Google Sans Code', monospace; font-weight: 500; }
+
+    #end-bg { position: absolute; inset: 0; background: #eaddff; }
+    #end-icon { position: absolute; left: 830px; top: 150px; width: 260px; height: 260px; border-radius: 60px; }
+    #end-word { position: absolute; left: 0; right: 0; top: 450px; text-align: center; font-size: 112px; font-weight: 700; letter-spacing: -0.025em; color: #21005d; }
+    #end-sub { position: absolute; left: 0; right: 0; top: 600px; text-align: center; font-size: 44px; font-weight: 500; color: #4a4458; }
+    #end-url { position: absolute; left: 0; right: 0; top: 700px; text-align: center; font-size: 72px; font-weight: 700; color: #6750a4; letter-spacing: -0.01em; }
+    #end-install { position: absolute; left: 0; right: 0; top: 840px; text-align: center; font-size: 32px; color: #1d1b20; }
+    #end-install span { background: #ffffff; border-radius: 18px; padding: 16px 28px; }
+
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1920" data-height="1080">
+
+    <div id="end-bg"></div>
+    <img id="end-icon" src="assets/img/icon.svg" alt="M3 Expressive Paywall icon" />
+    <div id="end-word">M3 Expressive Paywall</div>
+    <div id="end-sub">Free and open source · MIT · Jetpack Compose</div>
+    <div id="end-url">paywall.sanikant.dev</div>
+    <div id="end-install" class="code"><span>implementation("com.github.sanikantv:m3-expressive-paywall:v1.0.0")</span></div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wipeIn = (sel, at, dur = 0.35) =>
+      tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: dur, ease: "power3.out" }, at);
+    const wipeOut = (sel, at, dur = 0.22) =>
+      tl.fromTo(sel, { clipPath: "inset(0 0% 0 0)" }, { clipPath: "inset(0 0% 0 100%)", duration: dur, ease: "power2.in", immediateRender: false }, at);
+
+    tl.fromTo("#end-icon", { y: 500, scale: 0.4, rotation: 90 }, { y: 0, scale: 1, rotation: 0, duration: 0.8, ease: "back.out(1.5)" }, 0.05);
+    wipeIn("#end-word", 0.45, 0.5);
+    wipeIn("#end-sub", 0.5);                          // "free" 55.30
+    tl.fromTo("#end-url", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }, 2.1);   // "Get" 57.07
+    wipeIn("#end-install", 2.9, 0.5);
+
+    window.__timelines["endcard"] = tl;
+  </script>
+</template>

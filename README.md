@@ -18,6 +18,11 @@
 </p>
 
 <p align="center">
+  <a href="https://paywall.sanikant.dev/#watch-the-1-minute-intro"><img src="art/intro-thumbnail.jpg" alt="Watch the 1-minute intro video" width="640" /></a><br />
+  <sub>▶ <a href="https://paywall.sanikant.dev/#watch-the-1-minute-intro">Watch the 1-minute intro</a> (with captions) or <a href="art/intro.mp4">download the MP4</a>. Made in code with <a href="video/intro">HyperFrames</a>.</sub>
+</p>
+
+<p align="center">
   <img src="art/hero.gif" alt="Demo: plan picker morphing between plans, predictive back, limited-time offer sheet" width="300" />
 </p>
 
@@ -311,6 +316,7 @@ app/       the demo: gallery, settings sheet (theme, dynamic color, motion), fak
 art/       icon, screenshots, hero GIF, social preview
 scripts/   capture.sh (screenshots), record_hero.sh (GIF), make_icon.py + render_icon.sh
 docs/      PAYWALL_CATALOG.md for humans and AI agents
+video/intro/    the intro video as code (HyperFrames scenes, voiceover, captions), see video/intro/README.md
 docs-snippets/  every code sample on the docs site, compiled on each build (not published)
 site/      the docs site (Astro + Starlight) deployed to paywall.sanikant.dev, see site/DEPLOY.md
 ```

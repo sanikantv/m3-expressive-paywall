@@ -1,0 +1,40 @@
+<template>
+  <style>
+    @font-face { font-family: 'Google Sans Flex'; src: url('assets/fonts/google-sans-flex-latin.woff2') format('woff2'); font-weight: 1 1000; }
+    @font-face { font-family: 'Google Sans Code'; src: url('assets/fonts/GoogleSansCode.ttf') format('truetype'); font-weight: 300 800; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; color: #1d1b20; }
+    .phone { position: absolute; width: 420px; height: 900px; border-radius: 66px; background: #1d1b20; padding: 14px;
+             box-shadow: 0 30px 60px rgba(29, 27, 32, 0.22); }
+    .screen { position: relative; width: 392px; height: 872px; border-radius: 52px; overflow: hidden; background: #fef7ff; }
+    .screen img, .screen video { position: absolute; left: 0; top: 0; width: 392px; height: 872px; object-fit: cover; }
+    .display { font-weight: 700; font-size: 104px; letter-spacing: -0.02em; line-height: 1.04; }
+    .code { font-family: 'Google Sans Code', monospace; font-weight: 500; }
+
+    #reveal-bg { position: absolute; inset: 0; background: #eaddff; }
+    #reveal-lockup { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 52px; }
+    #reveal-icon { width: 250px; height: 250px; border-radius: 58px; }
+    #reveal-word { font-size: 112px; font-weight: 700; letter-spacing: -0.025em; color: #21005d; white-space: nowrap; }
+
+  </style>
+  <div id="root" data-composition-id="reveal" data-width="1920" data-height="1080">
+
+    <div id="reveal-bg"></div>
+    <div id="reveal-lockup">
+      <img id="reveal-icon" src="assets/img/icon.svg" alt="M3 Expressive Paywall icon" />
+      <div id="reveal-word">M3 Expressive Paywall</div>
+    </div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wipeIn = (sel, at, dur = 0.35) =>
+      tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: dur, ease: "power3.out" }, at);
+    const wipeOut = (sel, at, dur = 0.22) =>
+      tl.fromTo(sel, { clipPath: "inset(0 0% 0 0)" }, { clipPath: "inset(0 0% 0 100%)", duration: dur, ease: "power2.in", immediateRender: false }, at);
+
+    tl.fromTo("#reveal-icon", { scale: 0, rotation: -120 }, { scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.6)" }, 0.18);  // "Meet" 12.74
+    wipeIn("#reveal-word", 0.75, 0.5);
+
+    window.__timelines["reveal"] = tl;
+  </script>
+</template>

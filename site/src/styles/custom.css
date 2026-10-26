@@ -179,3 +179,21 @@
     width: min(230px, 62vw);
   }
 }
+
+/* Intro video on the landing page. */
+.intro-video {
+  margin: 1.5rem 0 0;
+}
+.intro-video video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 1.25rem;
+  background: #eaddff;
+  display: block;
+}
+.intro-video figcaption {
+  margin-top: 0.6rem;
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-3);
+}

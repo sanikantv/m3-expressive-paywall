@@ -1,0 +1,59 @@
+<template>
+  <style>
+    @font-face { font-family: 'Google Sans Flex'; src: url('assets/fonts/google-sans-flex-latin.woff2') format('woff2'); font-weight: 1 1000; }
+    @font-face { font-family: 'Google Sans Code'; src: url('assets/fonts/GoogleSansCode.ttf') format('truetype'); font-weight: 300 800; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; color: #1d1b20; }
+    .phone { position: absolute; width: 420px; height: 900px; border-radius: 66px; background: #1d1b20; padding: 14px;
+             box-shadow: 0 30px 60px rgba(29, 27, 32, 0.22); }
+    .screen { position: relative; width: 392px; height: 872px; border-radius: 52px; overflow: hidden; background: #fef7ff; }
+    .screen img, .screen video { position: absolute; left: 0; top: 0; width: 392px; height: 872px; object-fit: cover; }
+    .display { font-weight: 700; font-size: 104px; letter-spacing: -0.02em; line-height: 1.04; }
+    .code { font-family: 'Google Sans Code', monospace; font-weight: 500; }
+
+    #rules-bg { position: absolute; inset: 0; background: #f3edf7; }
+    #rules-sheet { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: #1d1b20; border-radius: 48px 48px 0 0; }
+    #rules-title { position: absolute; left: 160px; top: 150px; color: #e6e0e9; white-space: nowrap; }
+    #rules-title b { color: #d0bcff; font-weight: 700; }
+    #rules-source { position: absolute; left: 164px; top: 290px; font-size: 34px; font-weight: 500; color: #938f99; }
+    .rules-row { position: absolute; left: 160px; display: flex; align-items: center; gap: 36px; }
+    #rules-price { top: 420px; } #rules-period { top: 560px; } #rules-trial { top: 700px; } #rules-renew { top: 840px; }
+    .rules-bullet { width: 84px; height: 84px; }
+    .rules-bullet path { fill: none; stroke: #d0bcff; stroke-width: 5; }
+    .rules-text { font-size: 72px; font-weight: 600; color: #e6e0e9; letter-spacing: -0.01em; white-space: nowrap; }
+
+  </style>
+  <div id="root" data-composition-id="rules" data-width="1920" data-height="1080">
+
+    <div id="rules-bg"></div>
+    <div id="rules-sheet">
+    <div id="rules-title" class="display">Google Play has <b>rules</b></div>
+    <div id="rules-source">Play Console Help · Subscriptions policy</div>
+    <div id="rules-price" class="rules-row"><svg class="rules-bullet" viewBox="0 0 100 100"><path d="M50.0,2.7 L53.1,3.2 L56.0,4.7 L58.6,6.8 L61.0,9.1 L63.2,11.0 L65.6,12.4 L68.2,13.1 L71.2,13.3 L74.4,13.4 L77.8,13.8 L80.9,14.8 L83.4,16.6 L85.2,19.1 L86.2,22.2 L86.6,25.6 L86.7,28.8 L86.9,31.8 L87.6,34.4 L89.0,36.8 L90.9,39.0 L93.2,41.4 L95.3,44.0 L96.8,46.9 L97.3,50.0 L96.8,53.1 L95.3,56.0 L93.2,58.6 L90.9,61.0 L89.0,63.2 L87.6,65.6 L86.9,68.2 L86.7,71.2 L86.6,74.4 L86.2,77.8 L85.2,80.9 L83.4,83.4 L80.9,85.2 L77.8,86.2 L74.4,86.6 L71.2,86.7 L68.2,86.9 L65.6,87.6 L63.2,89.0 L61.0,90.9 L58.6,93.2 L56.0,95.3 L53.1,96.8 L50.0,97.3 L46.9,96.8 L44.0,95.3 L41.4,93.2 L39.0,90.9 L36.8,89.0 L34.4,87.6 L31.8,86.9 L28.8,86.7 L25.6,86.6 L22.2,86.2 L19.1,85.2 L16.6,83.4 L14.8,80.9 L13.8,77.8 L13.4,74.4 L13.3,71.2 L13.1,68.2 L12.4,65.6 L11.0,63.2 L9.1,61.0 L6.8,58.6 L4.7,56.0 L3.2,53.1 L2.7,50.0 L3.2,46.9 L4.7,44.0 L6.8,41.4 L9.1,39.0 L11.0,36.8 L12.4,34.4 L13.1,31.8 L13.3,28.8 L13.4,25.6 L13.8,22.2 L14.8,19.1 L16.6,16.6 L19.1,14.8 L22.2,13.8 L25.6,13.4 L28.8,13.3 L31.8,13.1 L34.4,12.4 L36.8,11.0 L39.0,9.1 L41.4,6.8 L44.0,4.7 L46.9,3.2Z" /></svg><span class="rules-text">Price</span></div>
+    <div id="rules-period" class="rules-row"><svg class="rules-bullet" viewBox="0 0 100 100"><path d="M50.0,2.7 L53.1,3.2 L56.0,4.7 L58.6,6.8 L61.0,9.1 L63.2,11.0 L65.6,12.4 L68.2,13.1 L71.2,13.3 L74.4,13.4 L77.8,13.8 L80.9,14.8 L83.4,16.6 L85.2,19.1 L86.2,22.2 L86.6,25.6 L86.7,28.8 L86.9,31.8 L87.6,34.4 L89.0,36.8 L90.9,39.0 L93.2,41.4 L95.3,44.0 L96.8,46.9 L97.3,50.0 L96.8,53.1 L95.3,56.0 L93.2,58.6 L90.9,61.0 L89.0,63.2 L87.6,65.6 L86.9,68.2 L86.7,71.2 L86.6,74.4 L86.2,77.8 L85.2,80.9 L83.4,83.4 L80.9,85.2 L77.8,86.2 L74.4,86.6 L71.2,86.7 L68.2,86.9 L65.6,87.6 L63.2,89.0 L61.0,90.9 L58.6,93.2 L56.0,95.3 L53.1,96.8 L50.0,97.3 L46.9,96.8 L44.0,95.3 L41.4,93.2 L39.0,90.9 L36.8,89.0 L34.4,87.6 L31.8,86.9 L28.8,86.7 L25.6,86.6 L22.2,86.2 L19.1,85.2 L16.6,83.4 L14.8,80.9 L13.8,77.8 L13.4,74.4 L13.3,71.2 L13.1,68.2 L12.4,65.6 L11.0,63.2 L9.1,61.0 L6.8,58.6 L4.7,56.0 L3.2,53.1 L2.7,50.0 L3.2,46.9 L4.7,44.0 L6.8,41.4 L9.1,39.0 L11.0,36.8 L12.4,34.4 L13.1,31.8 L13.3,28.8 L13.4,25.6 L13.8,22.2 L14.8,19.1 L16.6,16.6 L19.1,14.8 L22.2,13.8 L25.6,13.4 L28.8,13.3 L31.8,13.1 L34.4,12.4 L36.8,11.0 L39.0,9.1 L41.4,6.8 L44.0,4.7 L46.9,3.2Z" /></svg><span class="rules-text">Billing period</span></div>
+    <div id="rules-trial" class="rules-row"><svg class="rules-bullet" viewBox="0 0 100 100"><path d="M50.0,2.7 L53.1,3.2 L56.0,4.7 L58.6,6.8 L61.0,9.1 L63.2,11.0 L65.6,12.4 L68.2,13.1 L71.2,13.3 L74.4,13.4 L77.8,13.8 L80.9,14.8 L83.4,16.6 L85.2,19.1 L86.2,22.2 L86.6,25.6 L86.7,28.8 L86.9,31.8 L87.6,34.4 L89.0,36.8 L90.9,39.0 L93.2,41.4 L95.3,44.0 L96.8,46.9 L97.3,50.0 L96.8,53.1 L95.3,56.0 L93.2,58.6 L90.9,61.0 L89.0,63.2 L87.6,65.6 L86.9,68.2 L86.7,71.2 L86.6,74.4 L86.2,77.8 L85.2,80.9 L83.4,83.4 L80.9,85.2 L77.8,86.2 L74.4,86.6 L71.2,86.7 L68.2,86.9 L65.6,87.6 L63.2,89.0 L61.0,90.9 L58.6,93.2 L56.0,95.3 L53.1,96.8 L50.0,97.3 L46.9,96.8 L44.0,95.3 L41.4,93.2 L39.0,90.9 L36.8,89.0 L34.4,87.6 L31.8,86.9 L28.8,86.7 L25.6,86.6 L22.2,86.2 L19.1,85.2 L16.6,83.4 L14.8,80.9 L13.8,77.8 L13.4,74.4 L13.3,71.2 L13.1,68.2 L12.4,65.6 L11.0,63.2 L9.1,61.0 L6.8,58.6 L4.7,56.0 L3.2,53.1 L2.7,50.0 L3.2,46.9 L4.7,44.0 L6.8,41.4 L9.1,39.0 L11.0,36.8 L12.4,34.4 L13.1,31.8 L13.3,28.8 L13.4,25.6 L13.8,22.2 L14.8,19.1 L16.6,16.6 L19.1,14.8 L22.2,13.8 L25.6,13.4 L28.8,13.3 L31.8,13.1 L34.4,12.4 L36.8,11.0 L39.0,9.1 L41.4,6.8 L44.0,4.7 L46.9,3.2Z" /></svg><span class="rules-text">Trial terms</span></div>
+    <div id="rules-renew" class="rules-row"><svg class="rules-bullet" viewBox="0 0 100 100"><path d="M50.0,2.7 L53.1,3.2 L56.0,4.7 L58.6,6.8 L61.0,9.1 L63.2,11.0 L65.6,12.4 L68.2,13.1 L71.2,13.3 L74.4,13.4 L77.8,13.8 L80.9,14.8 L83.4,16.6 L85.2,19.1 L86.2,22.2 L86.6,25.6 L86.7,28.8 L86.9,31.8 L87.6,34.4 L89.0,36.8 L90.9,39.0 L93.2,41.4 L95.3,44.0 L96.8,46.9 L97.3,50.0 L96.8,53.1 L95.3,56.0 L93.2,58.6 L90.9,61.0 L89.0,63.2 L87.6,65.6 L86.9,68.2 L86.7,71.2 L86.6,74.4 L86.2,77.8 L85.2,80.9 L83.4,83.4 L80.9,85.2 L77.8,86.2 L74.4,86.6 L71.2,86.7 L68.2,86.9 L65.6,87.6 L63.2,89.0 L61.0,90.9 L58.6,93.2 L56.0,95.3 L53.1,96.8 L50.0,97.3 L46.9,96.8 L44.0,95.3 L41.4,93.2 L39.0,90.9 L36.8,89.0 L34.4,87.6 L31.8,86.9 L28.8,86.7 L25.6,86.6 L22.2,86.2 L19.1,85.2 L16.6,83.4 L14.8,80.9 L13.8,77.8 L13.4,74.4 L13.3,71.2 L13.1,68.2 L12.4,65.6 L11.0,63.2 L9.1,61.0 L6.8,58.6 L4.7,56.0 L3.2,53.1 L2.7,50.0 L3.2,46.9 L4.7,44.0 L6.8,41.4 L9.1,39.0 L11.0,36.8 L12.4,34.4 L13.1,31.8 L13.3,28.8 L13.4,25.6 L13.8,22.2 L14.8,19.1 L16.6,16.6 L19.1,14.8 L22.2,13.8 L25.6,13.4 L28.8,13.3 L31.8,13.1 L34.4,12.4 L36.8,11.0 L39.0,9.1 L41.4,6.8 L44.0,4.7 L46.9,3.2Z" /></svg><span class="rules-text">That it auto-renews</span></div>
+    </div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wipeIn = (sel, at, dur = 0.35) =>
+      tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: dur, ease: "power3.out" }, at);
+    const wipeOut = (sel, at, dur = 0.22) =>
+      tl.fromTo(sel, { clipPath: "inset(0 0% 0 0)" }, { clipPath: "inset(0 0% 0 100%)", duration: dur, ease: "power2.in", immediateRender: false }, at);
+
+    tl.fromTo("#rules-sheet", { y: 1080 }, { y: 0, duration: 0.5, ease: "expo.out" }, 0);
+    wipeIn("#rules-title", 0.32, 0.45);              // "Google" 4.00 … "rules" 6.24
+    wipeIn("#rules-source", 1.1);
+    tl.fromTo("#rules-price .rules-bullet", { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 3.82);
+    wipeIn("#rules-price .rules-text", 3.87);
+    tl.fromTo("#rules-period .rules-bullet", { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 4.78);
+    wipeIn("#rules-period .rules-text", 4.83);
+    tl.fromTo("#rules-trial .rules-bullet", { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 5.9);
+    wipeIn("#rules-trial .rules-text", 5.95);
+    tl.fromTo("#rules-renew .rules-bullet", { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2)" }, 7.55);
+    wipeIn("#rules-renew .rules-text", 7.60);
+
+    window.__timelines["rules"] = tl;
+  </script>
+</template>

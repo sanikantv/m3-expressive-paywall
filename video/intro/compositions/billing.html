@@ -1,0 +1,64 @@
+<template>
+  <style>
+    @font-face { font-family: 'Google Sans Flex'; src: url('assets/fonts/google-sans-flex-latin.woff2') format('woff2'); font-weight: 1 1000; }
+    @font-face { font-family: 'Google Sans Code'; src: url('assets/fonts/GoogleSansCode.ttf') format('truetype'); font-weight: 300 800; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; color: #1d1b20; }
+    .phone { position: absolute; width: 420px; height: 900px; border-radius: 66px; background: #1d1b20; padding: 14px;
+             box-shadow: 0 30px 60px rgba(29, 27, 32, 0.22); }
+    .screen { position: relative; width: 392px; height: 872px; border-radius: 52px; overflow: hidden; background: #fef7ff; }
+    .screen img, .screen video { position: absolute; left: 0; top: 0; width: 392px; height: 872px; object-fit: cover; }
+    .display { font-weight: 700; font-size: 104px; letter-spacing: -0.02em; line-height: 1.04; }
+    .code { font-family: 'Google Sans Code', monospace; font-weight: 500; }
+
+    #bill-bg { position: absolute; inset: 0; background: #1d1b20; }
+    #bill-card { position: absolute; left: 120px; top: 400px; width: 1680px; height: 420px; border-radius: 40px; background: #2b2930; }
+    #bill-block { position: absolute; left: 190px; top: 500px; width: 1600px; height: 240px; font-size: 44px; line-height: 1.6; color: #e6e0e9; }
+    #bill-open { position: absolute; left: 0; top: 0; white-space: pre; }
+    #bill-block .k { color: #d0bcff; }
+    .bill-body { position: absolute; left: 0; top: 70px; white-space: pre; }
+    .bill-body .cm { color: #938f99; }
+    #bill-close { position: absolute; left: 0; top: 140px; white-space: pre; }
+    .bill-cap { position: absolute; left: 120px; top: 190px; font-size: 104px; font-weight: 700; letter-spacing: -0.02em; color: #d0bcff; white-space: nowrap; }
+
+  </style>
+  <div id="root" data-composition-id="billing" data-width="1920" data-height="1080">
+
+    <div id="bill-bg"></div>
+    <div id="bill-card"></div>
+    <div id="bill-cb1" class="bill-cap">Google Play Billing 9</div>
+    <div id="bill-cb2" class="bill-cap">RevenueCat 10</div>
+    <div id="bill-cb3" class="bill-cap">Your own backend</div>
+    <div id="bill-block" class="code" data-layout-allow-overlap>
+      <div id="bill-open"><span class="k">onPurchase</span> = { plan -&gt;</div>
+      <div id="bill-b0" class="bill-body">    <span class="cm">// your billing here</span></div>
+      <div id="bill-b1" class="bill-body">    launchPurchase(activity, billingClient, product, plan)</div>
+      <div id="bill-b2" class="bill-body">    purchase(activity, packages, plan) { unlock() }</div>
+      <div id="bill-b3" class="bill-body">    yourBackend.subscribe(plan.id)</div>
+      <div id="bill-close">}</div>
+    </div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wipeIn = (sel, at, dur = 0.35) =>
+      tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: dur, ease: "power3.out" }, at);
+    const wipeOut = (sel, at, dur = 0.22) =>
+      tl.fromTo(sel, { clipPath: "inset(0 0% 0 0)" }, { clipPath: "inset(0 0% 0 100%)", duration: dur, ease: "power2.in", immediateRender: false }, at);
+
+    tl.fromTo("#bill-card", { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 0);
+    tl.fromTo("#bill-block", { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.04);
+    wipeIn("#bill-b0", 0.35);
+    wipeOut("#bill-b0", 1.7);
+    wipeIn("#bill-b1", 1.8);
+    wipeIn("#bill-cb1", 1.8);
+    wipeOut("#bill-b1", 3.32);
+    wipeOut("#bill-cb1", 3.32);
+    wipeIn("#bill-b2", 3.37);
+    wipeIn("#bill-cb2", 3.37);
+    wipeOut("#bill-b2", 4.72);
+    wipeOut("#bill-cb2", 4.72);
+    wipeIn("#bill-b3", 4.82);
+    wipeIn("#bill-cb3", 4.82);
+    window.__timelines["billing"] = tl;
+  </script>
+</template>

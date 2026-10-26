@@ -46,6 +46,18 @@ export const onRequest = defineRouteMiddleware((context) => {
       keywords: ['Jetpack Compose', 'paywall', 'Material 3 Expressive', `material3 ${MATERIAL3}`, 'subscription'],
       author: AUTHOR,
     });
+    graph.push({
+      '@type': 'VideoObject',
+      name: 'M3 Expressive Paywall: intro',
+      description:
+        'A 63-second narrated tour of M3 Expressive Paywall: six Material 3 Expressive paywall screens for Jetpack Compose, the Google Play disclosure footer, and the plans-plus-three-callbacks API.',
+      thumbnailUrl: `${SITE_URL}/media/intro-poster.webp`,
+      contentUrl: `${SITE_URL}/media/intro.mp4`,
+      uploadDate: '2026-10-26',
+      duration: 'PT1M3S',
+      inLanguage: 'en',
+      author: AUTHOR,
+    });
   } else {
     const crumbs = [{ name: 'Home', url: `${SITE_URL}/` }];
     if (SECTIONS[section]) crumbs.push({ name: SECTIONS[section], url: `${SITE_URL}/${section}/` });

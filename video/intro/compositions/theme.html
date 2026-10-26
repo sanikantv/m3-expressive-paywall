@@ -1,0 +1,59 @@
+<template>
+  <style>
+    @font-face { font-family: 'Google Sans Flex'; src: url('assets/fonts/google-sans-flex-latin.woff2') format('woff2'); font-weight: 1 1000; }
+    @font-face { font-family: 'Google Sans Code'; src: url('assets/fonts/GoogleSansCode.ttf') format('truetype'); font-weight: 300 800; }
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: 'Google Sans Flex', sans-serif; color: #1d1b20; }
+    .phone { position: absolute; width: 420px; height: 900px; border-radius: 66px; background: #1d1b20; padding: 14px;
+             box-shadow: 0 30px 60px rgba(29, 27, 32, 0.22); }
+    .screen { position: relative; width: 392px; height: 872px; border-radius: 52px; overflow: hidden; background: #fef7ff; }
+    .screen img, .screen video { position: absolute; left: 0; top: 0; width: 392px; height: 872px; object-fit: cover; }
+    .display { font-weight: 700; font-size: 104px; letter-spacing: -0.02em; line-height: 1.04; }
+    .code { font-family: 'Google Sans Code', monospace; font-weight: 500; }
+
+    .theme-bg { position: absolute; inset: 0; }
+    #theme-bg-light { background: #fef7ff; }
+    #theme-bg-dark { background: #141218; }
+    #theme-bg-dyn { background: #f8f9fa; }
+    #theme-phone { left: 1180px; top: 90px; }
+    .theme-shot { position: absolute; inset: 0; }
+    #theme-words { position: absolute; left: 180px; top: 300px; }
+    .theme-word { font-size: 110px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; white-space: nowrap; color: #cac4d0; }
+
+  </style>
+  <div id="root" data-composition-id="theme" data-width="1920" data-height="1080">
+
+    <div id="theme-bg-light" class="theme-bg"></div>
+    <div id="theme-bg-dark" class="theme-bg"></div>
+    <div id="theme-bg-dyn" class="theme-bg"></div>
+    <div id="theme-words">
+      <div id="theme-w-light" class="theme-word">Light</div>
+      <div id="theme-w-dark" class="theme-word">Dark</div>
+      <div id="theme-w-dyn" class="theme-word">Dynamic color</div>
+    </div>
+    <div id="theme-phone" class="phone"><div class="screen">
+      <img src="assets/img/04-picker-light.png" alt="Plan picker, light theme" />
+      <img id="theme-shot-dark" class="theme-shot" src="assets/img/04-picker-dark.png" alt="Plan picker, dark theme" />
+      <img id="theme-shot-dyn" class="theme-shot" src="assets/img/04-picker-dynamic.png" alt="Plan picker, dynamic color" />
+    </div></div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const wipeIn = (sel, at, dur = 0.35) =>
+      tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: dur, ease: "power3.out" }, at);
+    const wipeOut = (sel, at, dur = 0.22) =>
+      tl.fromTo(sel, { clipPath: "inset(0 0% 0 0)" }, { clipPath: "inset(0 0% 0 100%)", duration: dur, ease: "power2.in", immediateRender: false }, at);
+
+    const reveal = (sel, at) => tl.fromTo(sel, { clipPath: "inset(0 0 0 100%)" }, { clipPath: "inset(0 0 0 0%)", duration: 0.5, ease: "expo.inOut" }, at);
+    tl.fromTo("#theme-phone", { y: 50, scale: 0.97 }, { y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 0);
+    tl.fromTo("#theme-w-light", { color: "#cac4d0" }, { color: "#1d1b20", duration: 0.2 }, 0.15);    // "Light" 50.71
+    reveal("#theme-bg-dark", 0.7); reveal("#theme-shot-dark", 0.7);                                   // "dark" 51.26
+    tl.to("#theme-w-light", { color: "#49454f", duration: 0.2 }, 0.75);
+    tl.to("#theme-w-dark", { color: "#e6e0e9", duration: 0.2 }, 0.8);
+    reveal("#theme-bg-dyn", 1.85); reveal("#theme-shot-dyn", 1.85);                                   // "color" 52.40
+    tl.to(["#theme-w-light", "#theme-w-dark"], { color: "#c4c6cf", duration: 0.2 }, 1.9);
+    tl.to("#theme-w-dyn", { color: "#1a1c1e", duration: 0.2 }, 1.95);
+
+    window.__timelines["theme"] = tl;
+  </script>
+</template>

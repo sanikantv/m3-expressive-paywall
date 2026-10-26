@@ -1,0 +1,110 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:01.607
+Your app is ready.
+
+2
+00:00:01.967 --> 00:00:03.151
+The paywall isn't.
+
+3
+00:00:03.697 --> 00:00:04.881
+On Google Play,
+
+4
+00:00:04.940 --> 00:00:06.901
+a subscription screen has rules:
+
+5
+00:00:07.134 --> 00:00:09.153
+the price, the billing period,
+
+6
+00:00:09.177 --> 00:00:10.326
+the trial terms,
+
+7
+00:00:10.350 --> 00:00:12.195
+and a clear note that it renews.
+
+8
+00:00:12.741 --> 00:00:15.039
+Meet M3 Expressive Paywall.
+
+9
+00:00:15.586 --> 00:00:18.464
+Six ready-made paywalls for Jetpack Compose,
+
+10
+00:00:18.756 --> 00:00:20.844
+built with Material 3 Expressive.
+
+11
+00:00:21.484 --> 00:00:22.621
+Classic plans.
+
+12
+00:00:23.144 --> 00:00:24.490
+Free versus Pro.
+
+13
+00:00:25.013 --> 00:00:26.208
+A trial timeline.
+
+14
+00:00:26.639 --> 00:00:28.275
+A plan picker that morphs.
+
+15
+00:00:28.798 --> 00:00:30.132
+A limited-time offer.
+
+16
+00:00:30.656 --> 00:00:32.315
+And an onboarding finale.
+
+17
+00:00:32.955 --> 00:00:35.183
+Pass in your plans and three callbacks.
+
+18
+00:00:35.706 --> 00:00:37.215
+That's the whole API.
+
+19
+00:00:37.738 --> 00:00:40.930
+Each screen writes the disclosure for the selected plan,
+
+20
+00:00:41.024 --> 00:00:43.972
+with Restore, Terms and Privacy right below.
+
+21
+00:00:44.519 --> 00:00:45.760
+Bring your own billing:
+
+22
+00:00:46.306 --> 00:00:47.583
+Google Play Billing,
+
+23
+00:00:47.711 --> 00:00:50.160
+RevenueCat, or your own backend.
+
+24
+00:00:50.707 --> 00:00:54.014
+Light, dark and dynamic color come straight from your
+
+25
+00:00:53.922 --> 00:00:54.502
+theme.
+
+26
+00:00:55.048 --> 00:00:56.615
+It's free and open source.
+
+27
+00:00:57.069 --> 00:01:00.318
+Get started at paywall.sanikant.dev.
+
