@@ -293,9 +293,9 @@ to my app and connect `onPurchase` to my existing BillingRepository."*
 | | Version |
 |---|---|
 | `androidx.compose.material3` | **1.5.0-beta02** (pinned) |
-| Compose BOM | 2026.02.01 |
+| Compose BOM | 2026.09.00 |
 | Kotlin | 2.2.10 |
-| Android Gradle Plugin | 9.2.1 |
+| Android Gradle Plugin | 9.4.1 (Gradle 9.8.2) |
 | compileSdk / targetSdk / minSdk | 37 / 36 / 26 |
 | `androidx.graphics:graphics-shapes` | 1.1.0 |
 | Demo font | Google Sans Flex (variable, SIL OFL 1.1) |

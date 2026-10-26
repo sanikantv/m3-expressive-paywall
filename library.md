@@ -14,7 +14,7 @@ Author: Sanikant (sanikant.dev)
 ## Install
 Repository setup: `maven("https://jitpack.io")` in `dependencyResolutionManagement.repositories`
 Dependency line: `implementation("com.github.sanikantv:m3-expressive-paywall:v1.0.0")`
-Requirements: minSdk 26 / compileSdk 37 / material3 1.5.0-beta02 (transitive, `api`) / Kotlin 2.2.10 (built with) / Compose BOM 2026.02.01 / AGP 9.2.1
+Requirements: minSdk 26 / compileSdk 37 / material3 1.5.0-beta02 (transitive, `api`) / Kotlin 2.2.10 (built with) / Compose BOM 2026.09.00 / AGP 9.4.1 / Gradle 9.8.2
 
 ## Positioning
 What it does: Six full paywall screens (Compose) that take `List<PaywallPlan>` + `onPurchase` / `onRestore` / `onClose`, with the price, period, trial and auto-renew disclosure built from the selected plan.
