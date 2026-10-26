@@ -1,0 +1,79 @@
+---
+title: M3 Expressive Paywall vs RevenueCat Paywalls and other options
+description: An honest comparison of M3 Expressive Paywall with building a Compose paywall yourself, RevenueCat Paywalls, Superwall, Adapty and Qonversion, and when each one is the better choice.
+sidebar:
+  label: Comparison
+  order: 2
+---
+
+There are three ways to put a paywall in a Compose app: build it yourself with material3, use a
+remote paywall builder from your billing provider, or start from code templates like this
+library. Each is the right choice for someone.
+
+## At a glance
+
+| | Build it yourself | M3 Expressive Paywall | Remote paywall builders |
+|---|---|---|---|
+| Where the design lives | Your code | Your code | Provider dashboard |
+| Change without an app update | No | No | Yes |
+| A/B tests and analytics | You build them | You build them | Built in |
+| Billing provider | Any | Any | That provider's SDK |
+| Material 3 Expressive components | If you build them | Yes | Depends on the template |
+| Cost | Your time | Free (MIT) | Provider pricing |
+| Time to a first paywall | Days | Minutes | Minutes to hours |
+
+## Build it yourself with material3
+
+**Better when** you have a designer's exact spec, or a paywall unlike any template.
+[How to build a paywall in Jetpack Compose](/guides/how-to-build-a-paywall-jetpack-compose/)
+shows a complete minimal version with plain material3.
+
+**Watch out for** the details that templates already handle: radio semantics, the disclosure
+line, the sticky button, dark mode and large fonts.
+
+## M3 Expressive Paywall
+
+**Better when** you want a polished, native Compose paywall in your own codebase today, built
+with the newest Material 3 Expressive components, and you don't want your UI tied to a billing
+provider.
+
+**Not the right fit when** you need to change the paywall without shipping an update, or want
+built-in experiments and conversion analytics. It is a UI library only.
+
+## RevenueCat Paywalls
+
+RevenueCat's Android SDK includes a Compose UI module, `purchases-ui`, that renders paywalls
+you design in the RevenueCat dashboard and attach to an Offering. RevenueCat describes it as
+letting you configure the paywall "without any code changes or app updates"
+([docs](https://www.revenuecat.com/docs/tools/paywalls)). It is part of the MIT-licensed
+[purchases-android](https://github.com/RevenueCat/purchases-android) repository.
+
+**Better when** you already use RevenueCat and want to iterate on paywalls remotely.
+
+**Consider this library instead when** you want the paywall in code, Material 3 Expressive
+design, or a UI that also works without RevenueCat. The two combine well: use RevenueCat for
+billing and these screens for UI. See
+[Connect a paywall to RevenueCat](/guides/connect-paywall-revenuecat/).
+
+RevenueCat also publishes open-source Compose paywall samples, such as
+[cat-paywall-compose](https://github.com/RevenueCat/cat-paywall-compose) and
+[compose-paywall-animations](https://github.com/RevenueCat/compose-paywall-animations). They are
+sample apps to learn from rather than libraries to depend on.
+
+## Superwall, Adapty and Qonversion
+
+These providers offer remote, no-code paywall builders tied to their own SDKs:
+
+- **Superwall**'s Android SDK presents paywalls built and configured in the Superwall dashboard
+  ([repo](https://github.com/superwall/Superwall-Android)).
+- **Adapty** has a Paywall Builder whose paywalls the Adapty SDK renders
+  ([docs](https://adapty.io/docs/adapty-paywall-builder)).
+- **Qonversion** has No-Codes screens built in its dashboard and shown by a separate Android SDK
+  ([docs](https://documentation.qonversion.io/docs/no-codes)).
+
+**Better when** you want marketing to change paywalls and run experiments without developers.
+**This library is better when** you want native Compose code you own, with no provider lock-in.
+
+Facts about other projects were checked against their official docs and repositories on
+2026-10-26. If something has changed, please
+[open an issue](https://github.com/sanikantv/m3-expressive-paywall/issues).

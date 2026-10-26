@@ -25,3 +25,5 @@ dependencyResolutionManagement {
 rootProject.name = "M3 Expressive Paywall"
 include(":app")
 include(":paywall")
+// Compiles every code sample shown on paywall.sanikant.dev. Not published.
+include(":docs-snippets")

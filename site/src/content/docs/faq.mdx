@@ -1,0 +1,42 @@
+---
+title: M3 Expressive Paywall FAQ
+description: Answers about M3 Expressive Paywall - material3 version, minimum SDK, dark mode and dynamic color, billing providers, Compose Multiplatform, animation speed and license.
+sidebar:
+  label: FAQ
+  order: 3
+faq:
+  - q: Does it work with stable material3?
+    a: Not with 1.4. The library is built on androidx.compose.material3 1.5.0-beta02, the first release line where the Material 3 Expressive components it uses (ButtonGroup, ToggleButton, MaterialShapes, wavy progress) are available. It brings that version with it.
+  - q: What is the minimum SDK?
+    a: minSdk 26 (Android 8.0). Your app must compile against SDK 37 because material3 1.5.0-beta02 requires it; targetSdk can stay lower.
+  - q: Does it support dark mode and dynamic color?
+    a: Yes. Every color comes from MaterialTheme.colorScheme, so the paywalls follow your theme, including dynamic (wallpaper) colors on Android 12 and newer.
+  - q: Do I need RevenueCat or another billing SDK?
+    a: No. The library has no billing code. Use Google Play Billing directly, RevenueCat, or anything else that gives you prices and a purchase function.
+  - q: Can I use it with Compose Multiplatform?
+    a: Not today. It is an Android library and uses Android resources for its strings.
+  - q: How do I change the animation speed?
+    a: The paywalls use MaterialTheme.motionScheme. MotionScheme.expressive() gives springy motion, MotionScheme.standard() calmer motion. Set it in MaterialExpressiveTheme.
+  - q: Can I translate the text?
+    a: Yes. Every default string is in the library's strings.xml with a pw_ prefix, so you can override them in your app's values-xx folders, or pass title and subtitle parameters directly.
+  - q: Is it free for commercial apps?
+    a: Yes. It is MIT licensed, so you can use and modify it in commercial apps. Keep the license notice.
+  - q: Does it handle Google Play policy for me?
+    a: It shows the price, billing period, trial terms and auto-renew text for the selected plan, plus Restore, Terms and Privacy links. You are still responsible for your final copy and prices, and for a way to manage the subscription.
+  - q: Why do I need OptIn for LimitedOfferSheet?
+    a: Its sheetState parameter uses material3's SheetState, which material3 marks ExperimentalMaterial3Api. Add OptIn(ExperimentalMaterial3Api::class) where you call it.
+---
+
+import PageFaq from '../../components/PageFaq.astro';
+
+Short answers to the questions developers ask most. Each links to the page with the details.
+
+<PageFaq heading={false} />
+
+## Learn more
+
+- Setup and requirements: [Getting started](/getting-started/)
+- Billing: [Google Play Billing](/guides/connect-paywall-google-play-billing/) and [RevenueCat](/guides/connect-paywall-revenuecat/)
+- Theming and motion: [Getting started → Theme](/getting-started/#theme)
+- Google Play rules: [Subscription paywall requirements](/guides/google-play-subscription-paywall-requirements/)
+- License: [MIT on GitHub](https://github.com/sanikantv/m3-expressive-paywall/blob/main/LICENSE)

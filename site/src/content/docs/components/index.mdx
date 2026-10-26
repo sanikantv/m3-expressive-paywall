@@ -1,0 +1,32 @@
+---
+title: Jetpack Compose paywall designs
+description: All six M3 Expressive Paywall designs for Jetpack Compose - classic plans, Free vs Pro table, trial timeline, plan picker, limited-time offer and onboarding - with screenshots.
+sidebar:
+  label: All designs
+  order: 0
+---
+
+Six paywall screens, one shared contract: a list of `PaywallPlan`s in, `onPurchase`, `onRestore`
+and `onClose` out. Pick by what you sell and where the paywall appears.
+
+| Design | Best for | Expressive APIs |
+|---|---|---|
+| [Classic plans](/components/classic-plans-paywall/) | Two or three plans, the safe default | `MaterialShapes`, `Morph`, `MotionScheme` |
+| [Free vs Pro table](/components/comparison-paywall/) | A generous free tier | Emphasized type, morphing plan tiles |
+| [Trial timeline](/components/trial-timeline-paywall/) | Free trials | `MaterialShapes` timeline nodes |
+| [Plan picker](/components/plan-picker-paywall/) | Two to four short-named plans | Connected `ToggleButton` group, `Morph` |
+| [Limited-time offer](/components/limited-offer-sheet/) | Win-back and launch discounts | `LinearWavyProgressIndicator`, `ModalBottomSheet` |
+| [Onboarding end](/components/onboarding-paywall/) | The last onboarding step | `HorizontalPager`, emphasized type |
+
+<div class="gallery">
+  <a href="/components/classic-plans-paywall/"><img src="/media/screens/01-classic-dark.webp" width="540" height="1200" alt="Classic plans paywall, dark theme" loading="lazy" decoding="async" /><strong>Classic plans</strong></a>
+  <a href="/components/comparison-paywall/"><img src="/media/screens/02-comparison-dark.webp" width="540" height="1200" alt="Free vs Pro comparison paywall, dark theme" loading="lazy" decoding="async" /><strong>Free vs Pro table</strong></a>
+  <a href="/components/trial-timeline-paywall/"><img src="/media/screens/03-trial-dark.webp" width="540" height="1200" alt="Trial timeline paywall, dark theme" loading="lazy" decoding="async" /><strong>Trial timeline</strong></a>
+  <a href="/components/plan-picker-paywall/"><img src="/media/screens/04-picker-dark.webp" width="540" height="1200" alt="Plan picker paywall, dark theme" loading="lazy" decoding="async" /><strong>Plan picker</strong></a>
+  <a href="/components/limited-offer-sheet/"><img src="/media/screens/05-offer-dark.webp" width="540" height="1200" alt="Limited-time offer sheet, dark theme" loading="lazy" decoding="async" /><strong>Limited-time offer</strong></a>
+  <a href="/components/onboarding-paywall/"><img src="/media/screens/06-onboarding-dark.webp" width="540" height="1200" alt="Onboarding paywall, dark theme" loading="lazy" decoding="async" /><strong>Onboarding end</strong></a>
+</div>
+
+Every design shows the same compliance footer, follows your `MaterialTheme` and comes with light
+and dark `@Preview`s in the source. The data classes are described in
+[PaywallPlan and models](/components/paywall-plan/).

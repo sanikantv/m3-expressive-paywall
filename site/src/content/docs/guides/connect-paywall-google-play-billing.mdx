@@ -1,0 +1,84 @@
+---
+title: Connect a Compose paywall to Google Play Billing
+description: Use Google Play Billing Library 9 with a Jetpack Compose paywall - query ProductDetails, map subscription offers to plans, launch the billing flow and restore purchases.
+sidebar:
+  order: 3
+faq:
+  - q: Which Play Billing version does this guide use?
+    a: Google Play Billing Library 9.1.0 with the billing-ktx extensions. The snippets are compiled against that version.
+  - q: What should the plan id be?
+    a: The offer token of the subscription offer. launchBillingFlow needs it, so storing it in PaywallPlan.id lets onPurchase start the right offer directly.
+  - q: Where do I acknowledge the purchase?
+    a: In your PurchasesUpdatedListener, after verifying the purchase (ideally on your server). The paywall UI is not involved in that step.
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import Snippet from '../../../components/Snippet.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** load your subscription with `queryProductDetails`, turn each
+`SubscriptionOfferDetails` into a plan (price from the last pricing phase, trial from a free
+phase, offer token as the id), and call `launchBillingFlow` with that offer token when the user
+taps the paywall's button.
+
+<Aside>
+  Setting up the `BillingClient` connection and handling `PurchasesUpdatedListener` are covered in
+  Google's [Integrate the Google Play Billing Library](https://developer.android.com/google/play/billing/integrate)
+  guide. This page covers the part between the billing data and your Compose UI.
+</Aside>
+
+## Add the dependency
+
+```kotlin
+implementation("com.android.billingclient:billing-ktx:9.1.0")
+```
+
+## Steps
+
+<Steps>
+
+1. **Load the product.** Call it after the client is connected:
+
+   <Snippet file="PlayBilling.kt" region="play-query" />
+
+2. **Map offers to plans.** A subscription has one or more offers, each with pricing phases. The
+   last phase is the recurring price, and a free phase (`priceAmountMicros == 0`) is the trial.
+   `formattedPrice` is already localized by Google Play.
+
+   <Snippet file="PlayBilling.kt" region="play-map" />
+
+3. **Launch the purchase** from `onPurchase`. The offer token you stored in `plan.id` picks the offer:
+
+   <Snippet file="PlayBilling.kt" region="play-launch" />
+
+4. **Restore.** On Google Play, "restore" means asking which subscriptions the account already
+   owns, then unlocking the app if one is active:
+
+   <Snippet file="PlayBilling.kt" region="play-restore" />
+
+5. **Show the paywall** with the mapped plans, for example the
+   [classic design](/components/classic-plans-paywall/), and call the functions above from
+   `onPurchase` and `onRestore`.
+
+</Steps>
+
+## Tips and common mistakes
+
+- **Multiple base plans.** If monthly and yearly are separate base plans of one product,
+  `subscriptionOfferDetails` lists both; the mapper above handles that. If they are separate
+  products, query both and concatenate the plans.
+- **Don't show offers the user isn't eligible for.** Play returns only the offers this user can
+  buy, so a free trial disappears for users who already used it. Don't cache old plans.
+- **Wait for products before showing the paywall.** Show a loading state instead of an empty
+  plan list. The paywall needs at least one plan.
+
+## Related
+
+- [Connect a paywall to RevenueCat](/guides/connect-paywall-revenuecat/)
+- [Google Play subscription paywall requirements](/guides/google-play-subscription-paywall-requirements/)
+- [PaywallPlan and models](/components/paywall-plan/)
+
+<PageFaq />
+
+<GuideEnd />

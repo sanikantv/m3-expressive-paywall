@@ -1,5 +1,7 @@
 # Paywall catalog
 
+Full docs with screenshots, guides and compiled examples: https://paywall.sanikant.dev
+
 A reference for developers and AI coding agents. Each entry says when to use the design, its
 signature, which Material 3 Expressive APIs it uses, and a prompt you can paste into an agent.
 

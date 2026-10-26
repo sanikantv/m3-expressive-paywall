@@ -1,0 +1,26 @@
+---
+// Shows one `// region <name>` … `// endregion` block from the :docs-snippets Gradle module.
+// The module is compiled in CI, so every Kotlin sample on the site is known to build.
+import { Code } from '@astrojs/starlight/components';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+interface Props {
+  file: string;
+  region: string;
+  title?: string;
+}
+
+const { file, region, title } = Astro.props;
+const dir = resolve(process.cwd(), '../docs-snippets/src/main/java/dev/sanikant/m3/paywall/snippets');
+const lines = readFileSync(resolve(dir, file), 'utf8').split('\n');
+const start = lines.findIndex((l) => l.trim() === `// region ${region}`);
+const end = lines.findIndex((l, i) => i > start && l.trim() === '// endregion');
+if (start < 0 || end < 0) throw new Error(`Snippet region "${region}" not found in ${file}`);
+
+const body = lines.slice(start + 1, end);
+const indent = Math.min(...body.filter((l) => l.trim()).map((l) => l.match(/^ */)![0].length));
+const code = body.map((l) => l.slice(indent)).join('\n').trim();
+---
+
+<Code code={code} lang="kotlin" title={title} />

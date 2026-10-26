@@ -1,0 +1,95 @@
+---
+title: Google Play subscription paywall requirements
+description: What Google Play's subscription policy requires on an Android paywall - price, billing period, trial terms, auto-renewal and cancellation - as a checklist with Jetpack Compose examples.
+sidebar:
+  order: 2
+faq:
+  - q: Does Google Play require a Restore button?
+    a: Google Play's subscription policy page does not name a Restore button. It is still good practice, because users who reinstall or switch phones look for it, and Apple's App Store review does expect a restore option.
+  - q: Can I show the yearly plan as a monthly price?
+    a: Not as the main price. Google lists annual plans shown mainly as a monthly price as a violation. Show the full yearly price and add the monthly equivalent as secondary text.
+  - q: Do I need to explain the free trial?
+    a: Yes. Before the trial starts, users must see how long it lasts, what it includes, when it converts to a paid subscription, the price after it, and how to cancel.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Snippet from '../../../components/Snippet.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** Google Play wants the subscription's terms to be clear where the user decides:
+the cost, how often they are billed, that it renews automatically, the details of any free
+trial or intro offer, and how to cancel. Put them next to the purchase button, with no extra
+taps needed to see them.
+
+<Aside type="caution">
+  This page summarizes Google's
+  [Subscriptions policy](https://support.google.com/googleplay/android-developer/answer/9900533)
+  as checked on 2026-10-26. It is not legal advice. Read the policy itself before you ship, as
+  it changes.
+</Aside>
+
+## What the policy asks for
+
+According to Google's Play Console Help page on subscriptions, your app must clearly disclose:
+
+- [ ] **The offer terms**: what the subscription includes.
+- [ ] **The cost**.
+- [ ] **The billing frequency**, such as per month or per year.
+- [ ] **That it auto-renews**.
+- [ ] **Whether a subscription is needed to use the app**: what works without one.
+
+These belong in promotions, splash screens and plan-selection screens, without the user taking
+extra steps to find them.
+
+For **free trials and intro offers**, before the user signs up:
+
+- [ ] How long the trial or intro price lasts and what it includes
+- [ ] When and how it converts to a paid subscription
+- [ ] The price after the trial
+- [ ] How to cancel before it converts
+
+And users need an **easy way to manage or cancel** the subscription, for example a link to the
+Google Play subscriptions page.
+
+## Patterns Google lists as violations
+
+- Monthly plans that don't say they renew automatically
+- Annual plans shown mainly as a monthly price
+- Terms that are only partly translated
+- Hiding what is available without a subscription
+- Calling an auto-renewing plan a "Free Trial" product
+- Multi-step flows that lead to accidental subscriptions
+- No clear statement of when a trial becomes paid
+- No way to cancel
+
+## In Compose
+
+A disclosure line under the button covers price, period, trial and renewal. This plain
+material3 version shows the idea:
+
+<Snippet file="FromScratch.kt" region="scratch-paywall" />
+
+M3 Expressive Paywall builds the same line from each `PaywallPlan` and puts it in a shared footer
+on every design, together with Restore, Terms and Privacy links:
+
+- trial plan: "7-day free trial, then $29.99 per year. Renews automatically until canceled. Cancel anytime in Google Play."
+- one-time plan: "$79.99 one-time payment. No subscription, no renewals."
+
+What the library does **not** do for you:
+
+- It can't know what your app offers without a subscription. Say it in your copy, or use the
+  [Free vs Pro table](/components/comparison-paywall/).
+- It doesn't add a "Manage subscription" link inside your app. Add one in your settings screen
+  that opens `https://play.google.com/store/account/subscriptions`.
+- Your trial text must match the trial configured in Play Console.
+
+## Related
+
+- [How to build a paywall in Jetpack Compose](/guides/how-to-build-a-paywall-jetpack-compose/)
+- [Free trial paywall in Jetpack Compose](/guides/free-trial-paywall-jetpack-compose/)
+- [PaywallPlan and the disclosure text](/components/paywall-plan/)
+
+<PageFaq />
+
+<GuideEnd />

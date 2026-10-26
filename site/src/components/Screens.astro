@@ -1,0 +1,19 @@
+---
+// Light and dark screenshots of one design, captured from the demo app on an emulator.
+interface Props {
+  name: string; // e.g. "01-classic"
+  alt: string;
+}
+const { name, alt } = Astro.props;
+---
+
+<div class="screens">
+  <figure>
+    <img src={`/media/screens/${name}-light.webp`} width="270" height="600" alt={`${alt}, light theme`} loading="lazy" decoding="async" />
+    <figcaption>Light</figcaption>
+  </figure>
+  <figure>
+    <img src={`/media/screens/${name}-dark.webp`} width="270" height="600" alt={`${alt}, dark theme`} loading="lazy" decoding="async" />
+    <figcaption>Dark</figcaption>
+  </figure>
+</div>

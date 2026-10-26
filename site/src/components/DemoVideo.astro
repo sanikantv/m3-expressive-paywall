@@ -1,0 +1,11 @@
+---
+// The demo clip from the README. The poster image paints first (fast LCP); a script in
+// astro.config.mjs swaps in the looping video after load, once visible, unless reduced motion is on.
+const alt =
+  'Demo: switching plans in the plan picker morphs the card, predictive back returns to the gallery, and the limited-time offer sheet counts down';
+---
+
+<figure class="demo-video" data-video="/media/hero-demo">
+  <img src="/media/hero-poster.webp" width="270" height="600" alt={alt} decoding="async" loading="lazy" />
+  <noscript><img src="/media/hero-demo.gif" width="270" height="600" alt={alt} /></noscript>
+</figure>

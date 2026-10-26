@@ -1,0 +1,64 @@
+---
+title: Shape morphing with MaterialShapes in Jetpack Compose
+description: Use Material 3 Expressive MaterialShapes in Jetpack Compose as backgrounds and clips, and animate between them with Morph from androidx.graphics.shapes and the motion scheme.
+sidebar:
+  order: 7
+faq:
+  - q: Which shapes are available?
+    a: MaterialShapes includes Circle, Square, Pill, Cookie4Sided to Cookie12Sided, Sunny, VerySunny, Flower, Clover4Leaf, Clover8Leaf, Burst, SoftBurst, Heart, Gem and more. They are RoundedPolygon values from androidx.graphics.shapes.
+  - q: Do I need the graphics-shapes dependency?
+    a: material3 brings it transitively. Add androidx.graphics:graphics-shapes explicitly if you use Morph or RoundedPolygon directly, as this guide does.
+  - q: Why does my morph restart on every recomposition?
+    a: The Morph or its polygons are created again on each recomposition. Wrap the Morph in remember, and keep target shapes as stable instances.
+---
+
+import Snippet from '../../../components/Snippet.astro';
+import Screens from '../../../components/Screens.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** call `.toShape()` on any `MaterialShapes` polygon to use it as a normal Compose
+`Shape`. To animate between two shapes, create a `Morph(start, end)`, wrap it in a small `Shape`
+that calls `morph.toPath(progress)`, and animate `progress` with the theme's motion scheme.
+
+## Static shapes
+
+<Snippet file="ShapeMorph.kt" region="static-shape" />
+
+`MaterialShapes` polygons are normalized to a 0..1 box, so `toShape()` scales them to whatever
+size the layout gives.
+
+## A morphing shape
+
+Compose has no built-in "morphing shape", but it takes very little code:
+
+<Snippet file="ShapeMorph.kt" region="morph-shape" title="MorphShape.kt" />
+
+Then animate the progress. With `MotionScheme.expressive()` the spatial spec is a spring, so the
+shape overshoots slightly, which is the Expressive feel:
+
+<Snippet file="ShapeMorph.kt" region="morph-toggle" />
+
+## In the paywalls
+
+M3 Expressive Paywall uses this in two places: the selection radio morphs from a circle into
+`Cookie9Sided`, and the [plan picker](/components/plan-picker-paywall/) spotlight card morphs
+between a cookie, a sunny shape and a flower as you switch plans.
+
+<Screens name="04-picker" alt="Plan picker paywall with a morphing spotlight card" />
+
+## Tips
+
+- Morph between shapes with similar complexity. Circle to cookie looks smooth; circle to heart
+  can twist.
+- Rotate the morphed shape slightly with `graphicsLayer { rotationZ = … }` for more motion.
+- Respect reduced motion: with `MotionScheme.standard()` the springs are calmer.
+
+## Related
+
+- [Plan picker paywall](/components/plan-picker-paywall/)
+- [Connected button group in Jetpack Compose](/guides/connected-button-group-jetpack-compose/)
+
+<PageFaq />
+
+<GuideEnd />

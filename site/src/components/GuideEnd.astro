@@ -1,0 +1,12 @@
+---
+// Install call-to-action and the star line at the end of every guide.
+import { LinkButton } from '@astrojs/starlight/components';
+import Install from './Install.astro';
+import { REPO } from '../lib/site';
+---
+
+<h2 id="try-it">Try it in your app</h2>
+<p>Add the library (JitPack, minSdk 26), then follow <a href="/getting-started/">Getting started</a>.</p>
+<Install only="dependency" />
+<LinkButton href="/getting-started/" icon="right-arrow">Get started</LinkButton>
+<p class="star-line">⭐ If this guide helped, <a href={REPO}>star M3 Expressive Paywall on GitHub</a>. It helps other Compose developers find it.</p>

@@ -1,0 +1,83 @@
+---
+title: Getting started
+description: Add M3 Expressive Paywall to a Jetpack Compose app with JitPack, set compileSdk 37 and show your first Material 3 Expressive paywall in a few lines.
+sidebar:
+  order: 1
+---
+
+import { Aside, LinkCard, CardGrid, Steps } from '@astrojs/starlight/components';
+import Install from '../../components/Install.astro';
+import Snippet from '../../components/Snippet.astro';
+
+This page takes you from an empty Compose screen to a working paywall. Plan on five minutes.
+
+## Requirements
+
+| | Required |
+|---|---|
+| minSdk | 26 (Android 8.0) |
+| compileSdk | 37 |
+| `androidx.compose.material3` | 1.5.0-beta02 or newer (comes with the library) |
+| Kotlin | 2.2 or newer (the library is built with 2.2.10) |
+
+<Aside type="caution" title="Why compileSdk 37">
+  material3 `1.5.0-beta02` is the first release with the Expressive components the paywalls use,
+  and its artifacts require `compileSdk = 37`. Your `targetSdk` can stay where it is.
+</Aside>
+
+## Install
+
+<Steps>
+
+1. Add the JitPack repository and the dependency. Pick the tab that matches how your project
+   declares dependencies.
+
+   <Install />
+
+2. Sync Gradle. The library brings `material3:1.5.0-beta02` with it, so you don't need to add
+   it yourself.
+
+3. Add the imports where you build the screen:
+
+   <Snippet file="QuickStart.kt" region="imports" />
+
+</Steps>
+
+## Your first paywall
+
+<Snippet file="QuickStart.kt" region="quick-start" title="UpgradeScreen.kt" />
+
+What each part does:
+
+- **`plans`**: what the user can buy. `price` and `period` are display strings, so pass the
+  localized price your billing SDK gives you. The plan with a `badge` is preselected.
+- **`features`**: the benefits list. Icons come from `PaywallIcons`, or pass any `ImageVector`.
+- **`legal`**: your Terms and Privacy URLs. They open in the browser from the footer.
+- **`onPurchase`**: gets the selected `PaywallPlan`. Start your billing flow here.
+- **`onRestore`** and **`onClose`**: the Restore link and the close button.
+
+Under the button the paywall writes the disclosure line for the selected plan, for example
+"7-day free trial, then $29.99 per year. Renews automatically until canceled. Cancel anytime in
+Google Play."
+
+## Theme
+
+The paywalls read colors, type and motion from `MaterialTheme`. For the full Expressive feel,
+wrap your app in `MaterialExpressiveTheme` with `MotionScheme.expressive()`:
+
+<Snippet file="Theming.kt" region="theme" title="Theme.kt" />
+
+Dynamic color, dark mode and your own font apply automatically. The demo app uses
+[Google Sans Flex](https://fonts.google.com/specimen/Google+Sans+Flex) through a variable
+`FontFamily`:
+
+<Snippet file="Theming.kt" region="font" />
+
+## Next steps
+
+<CardGrid>
+  <LinkCard title="Choose a design" href="/components/" description="See all six paywalls with screenshots and parameters." />
+  <LinkCard title="Connect Google Play Billing" href="/guides/connect-paywall-google-play-billing/" description="Turn ProductDetails into plans and launch the purchase." />
+  <LinkCard title="Connect RevenueCat" href="/guides/connect-paywall-revenuecat/" description="Use RevenueCat packages with these paywalls." />
+  <LinkCard title="Check the Play requirements" href="/guides/google-play-subscription-paywall-requirements/" description="What your subscription screen must show." />
+</CardGrid>

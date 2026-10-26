@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://paywall.sanikant.dev/sitemap-index.xml

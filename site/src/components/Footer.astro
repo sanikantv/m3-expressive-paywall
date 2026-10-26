@@ -1,0 +1,38 @@
+---
+// Starlight's footer (edit link, last updated, pagination) plus project links.
+import Default from '@astrojs/starlight/components/Footer.astro';
+import { HUB, REPO, TELEGRAM } from '../lib/site';
+---
+
+<Default />
+<nav class="site-footer" aria-label="Project links">
+  <a href={`${REPO}/blob/main/LICENSE`}>MIT license</a>
+  <a href={REPO}>GitHub</a>
+  <a href="/changelog/">Changelog</a>
+  <a href={TELEGRAM}>Telegram updates</a>
+  <a href={HUB}>More libraries from sanikant.dev</a>
+</nav>
+<p class="site-credit">
+  Built by <a href={HUB}>Sanikant</a>. Set in Google Sans Flex (SIL Open Font License). Not affiliated with Google.
+</p>
+
+<style>
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-hairline);
+    font-size: var(--sl-text-sm);
+  }
+  .site-footer a,
+  .site-credit a {
+    color: var(--sl-color-gray-2);
+  }
+  .site-credit {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    margin-top: 0.5rem;
+  }
+</style>

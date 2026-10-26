@@ -1,0 +1,23 @@
+---
+title: Jetpack Compose paywall guides
+description: Step-by-step Jetpack Compose guides for subscription paywalls - Google Play rules, Play Billing, RevenueCat, free trials, countdowns, shape morphing and button groups.
+sidebar:
+  label: All guides
+  order: 0
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Each guide answers one question first, shows the plain Compose approach, then the shortcut with
+M3 Expressive Paywall. Every Kotlin snippet is compiled against the library before the site is published.
+
+<CardGrid>
+  <LinkCard title="How to build a paywall in Jetpack Compose" href="/guides/how-to-build-a-paywall-jetpack-compose/" description="A complete paywall with plain material3, then with a template." />
+  <LinkCard title="Google Play subscription paywall requirements" href="/guides/google-play-subscription-paywall-requirements/" description="The disclosure checklist from Play's subscription policy." />
+  <LinkCard title="Connect a paywall to Google Play Billing" href="/guides/connect-paywall-google-play-billing/" description="ProductDetails to plans, launch the flow, restore." />
+  <LinkCard title="Connect a paywall to RevenueCat" href="/guides/connect-paywall-revenuecat/" description="RevenueCat Offerings with your own Compose UI." />
+  <LinkCard title="Free trial paywall in Jetpack Compose" href="/guides/free-trial-paywall-jetpack-compose/" description="Explain the trial with a Today, reminder, billing timeline." />
+  <LinkCard title="Countdown timer in Jetpack Compose" href="/guides/countdown-timer-jetpack-compose/" description="A ticking timer with LinearWavyProgressIndicator." />
+  <LinkCard title="Shape morphing with MaterialShapes" href="/guides/shape-morphing-material-shapes-compose/" description="Material 3 Expressive shapes and Morph animations." />
+  <LinkCard title="Connected button group in Jetpack Compose" href="/guides/connected-button-group-jetpack-compose/" description="ToggleButton with connected shapes, single choice." />
+</CardGrid>

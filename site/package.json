@@ -1,0 +1,27 @@
+{
+  "name": "m3-expressive-paywall-docs",
+  "private": true,
+  "type": "module",
+  "description": "Docs and landing site for M3 Expressive Paywall, served at https://paywall.sanikant.dev",
+  "scripts": {
+    "snippets": "cd .. && ./gradlew :docs-snippets:assembleDebug --console=plain -q",
+    "api": "cd .. && ./gradlew :paywall:dokkaGeneratePublicationHtml --console=plain -q && rm -rf site/public/api && cp -R paywall/build/dokka/html site/public/api",
+    "dev": "astro dev",
+    "build": "astro build && cp dist/404/index.html dist/404.html",
+    "build:all": "npm run snippets && npm run api && npm run build",
+    "preview": "astro preview",
+    "deploy": "wrangler deploy",
+    "check": "node scripts/check-dist.mjs"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "0.42.7",
+    "astro": "7.4.2",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "wrangler": "4.152.0"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  }
+}

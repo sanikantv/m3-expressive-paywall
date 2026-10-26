@@ -1,0 +1,77 @@
+---
+title: Connect a Compose paywall to RevenueCat
+description: Use RevenueCat Offerings and Packages with your own Jetpack Compose paywall UI - map packages to plans, purchase, restore and check entitlements with purchases-android 10.
+sidebar:
+  order: 4
+faq:
+  - q: Isn't RevenueCat's own paywall enough?
+    a: RevenueCat Paywalls (the purchases-ui module) are configured remotely in the RevenueCat dashboard. That is great for changing paywalls without app updates. A code-based paywall like this library suits teams that want the UI in their repository, Material 3 Expressive design, or no dependency on a remote paywall config.
+  - q: Where does the RevenueCat API key go?
+    a: Use the public SDK key from the RevenueCat dashboard, keep it in local.properties and expose it through BuildConfig. Don't commit it to a public repository.
+  - q: Which RevenueCat SDK version is used here?
+    a: com.revenuecat.purchases:purchases 10.29.0. The snippets are compiled against it.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Snippet from '../../../components/Snippet.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** fetch the current Offering, map each `Package` to a plan (package identifier
+as the id, `product.price.formatted` as the price), then call `purchaseWith` with the matching
+package from `onPurchase`, and `restorePurchasesWith` from `onRestore`.
+
+## Add the dependency
+
+```kotlin
+implementation("com.revenuecat.purchases:purchases:10.29.0")
+```
+
+## Steps
+
+<Steps>
+
+1. **Configure the SDK** once, for example in `Application.onCreate`:
+
+   <Snippet file="RevenueCat.kt" region="rc-configure" />
+
+2. **Map packages to plans.** The package type gives a readable title, and the product's default
+   option tells you about a free trial:
+
+   <Snippet file="RevenueCat.kt" region="rc-map" />
+
+3. **Load the current Offering.** Keep the packages, because you need them to buy:
+
+   <Snippet file="RevenueCat.kt" region="rc-load" />
+
+4. **Purchase and restore**, then check your entitlement (here called `pro`):
+
+   <Snippet file="RevenueCat.kt" region="rc-purchase" />
+
+5. **Show any of the paywalls** with the plans, passing `purchase` and `restore` as callbacks.
+   See [all designs](/components/).
+
+</Steps>
+
+## RevenueCat Paywalls or your own UI?
+
+RevenueCat ships its own Compose paywall module, `purchases-ui`, which renders paywalls designed
+in the RevenueCat dashboard. The two approaches solve different problems:
+
+| | RevenueCat Paywalls | M3 Expressive Paywall + RevenueCat |
+|---|---|---|
+| Where the design lives | RevenueCat dashboard (remote) | Your code |
+| Change without an app update | Yes | No |
+| Material 3 Expressive components | Not the focus | Yes |
+| Works without RevenueCat | No | Yes, with any billing source |
+
+More detail on the [comparison page](/comparison/).
+
+## Related
+
+- [Connect a paywall to Google Play Billing](/guides/connect-paywall-google-play-billing/)
+- [Comparison with RevenueCat Paywalls and others](/comparison/)
+
+<PageFaq />
+
+<GuideEnd />

@@ -1,0 +1,48 @@
+---
+// Gradle setup blocks, generated from the published coordinates in src/lib/site.ts.
+import { Code, TabItem, Tabs } from '@astrojs/starlight/components';
+import { COORDINATES, VERSION } from '../lib/site';
+
+interface Props {
+  only?: 'dependency';
+}
+const { only } = Astro.props;
+
+const settings = `dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io")
+    }
+}`;
+const gradle = `dependencies {
+    implementation("${COORDINATES}")
+}`;
+const catalog = `[versions]
+m3Paywall = "${VERSION}"
+
+[libraries]
+m3-paywall = { module = "com.github.sanikantv:m3-expressive-paywall", version.ref = "m3Paywall" }`;
+const catalogUse = `dependencies {
+    implementation(libs.m3.paywall)
+}`;
+---
+
+{
+  only === 'dependency' ? (
+    <Code code={`implementation("${COORDINATES}")`} lang="kotlin" />
+  ) : (
+    <>
+      <Code code={settings} lang="kotlin" title="settings.gradle.kts" />
+      <Tabs syncKey="gradle">
+        <TabItem label="build.gradle.kts">
+          <Code code={gradle} lang="kotlin" title="app/build.gradle.kts" />
+        </TabItem>
+        <TabItem label="Version catalog">
+          <Code code={catalog} lang="toml" title="gradle/libs.versions.toml" />
+          <Code code={catalogUse} lang="kotlin" title="app/build.gradle.kts" />
+        </TabItem>
+      </Tabs>
+    </>
+  )
+}

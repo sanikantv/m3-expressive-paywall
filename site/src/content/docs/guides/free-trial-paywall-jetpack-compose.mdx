@@ -1,0 +1,65 @@
+---
+title: Free trial paywall in Jetpack Compose
+description: Build a free trial paywall in Jetpack Compose that shows what happens today, when the reminder comes and when billing starts, with the trial terms Google Play requires.
+sidebar:
+  order: 5
+faq:
+  - q: Why show a trial timeline?
+    a: It answers the biggest worry about free trials - "will I be charged by surprise?" - by showing when the user is reminded and when billing starts. Google Play also requires the trial length, conversion date, price and cancellation info before signup.
+  - q: Does the timeline send the reminder?
+    a: No. The timeline only describes it. Schedule the reminder yourself, for example with WorkManager or a server push, two days before the trial ends.
+  - q: What if the user picks a plan without a trial?
+    a: TrialTimelinePaywall fades the timeline and the button changes from Start free trial to Continue, so the screen never promises a trial the selected plan doesn't have.
+---
+
+import Snippet from '../../../components/Snippet.astro';
+import Screens from '../../../components/Screens.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** show the trial as three steps: today (full access), a reminder a couple of days
+before the end, and the day billing starts with the exact price. Put the trial terms in the
+disclosure under the button, and make the button say "Start free trial" only when the selected
+plan really has one.
+
+## Why a timeline works
+
+A free trial asks the user to trust you with a future charge. Showing the reminder and the
+billing day turns a vague risk into a clear plan. It is also what Google Play's policy asks for:
+the trial length, when it converts, the price after it and how to cancel, before signup. See
+[the requirements](/guides/google-play-subscription-paywall-requirements/).
+
+## With plain Compose
+
+A timeline is a `Column` of rows. Each row has an icon node with a vertical line under it, and
+text to the right. Give the row `Modifier.height(IntrinsicSize.Min)` so the line can fill the
+height of the text with `Modifier.weight(1f)`.
+
+## With M3 Expressive Paywall
+
+<Snippet file="Components.kt" region="trial-usage" />
+
+The default steps come from the first plan with a `trialText`. For a different trial length:
+
+<Snippet file="Components.kt" region="trial-14-days" />
+
+Or write your own copy:
+
+<Snippet file="Components.kt" region="trial-own-steps" />
+
+<Screens name="03-trial" alt="Free trial timeline paywall" />
+
+## Tips
+
+- Keep the reminder honest: if the timeline says Day 5, send it on day 5.
+- Use the same trial length everywhere: Play Console, `trialText` and the timeline.
+- Pair the trial plan with a plan that has no trial, so users can pay right away if they prefer.
+
+## Related
+
+- [Trial timeline paywall reference](/components/trial-timeline-paywall/)
+- [Connect a paywall to Google Play Billing](/guides/connect-paywall-google-play-billing/)
+
+<PageFaq />
+
+<GuideEnd />

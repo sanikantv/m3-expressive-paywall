@@ -6,6 +6,8 @@ Install: JitPack `com.github.sanikantv:m3-expressive-paywall:v1.0.0` (add `maven
 
 ## Docs
 
+- [Docs site](https://paywall.sanikant.dev): guides, design pages, API reference (https://paywall.sanikant.dev/llms.txt)
+
 - [Paywall catalog](https://github.com/sanikantv/m3-expressive-paywall/blob/main/docs/PAYWALL_CATALOG.md): when to use each design, signatures, Expressive APIs used, prompts
 - [README](https://github.com/sanikantv/m3-expressive-paywall/blob/main/README.md): setup, usage, Play Billing and RevenueCat mapping, compliance checklist
 

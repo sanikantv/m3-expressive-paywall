@@ -6,6 +6,8 @@
 
 <p align="center"><b>6 ready-to-use Material 3 Expressive paywalls for Jetpack Compose. Bring your own billing.</b></p>
 
+<p align="center"><a href="https://paywall.sanikant.dev"><b>📖 Docs and guides: paywall.sanikant.dev</b></a> · <a href="https://paywall.sanikant.dev/getting-started/">Getting started</a> · <a href="https://paywall.sanikant.dev/api/">API reference</a></p>
+
 <p align="center">
   <a href="https://github.com/sanikantv/m3-expressive-paywall/actions/workflows/build.yml"><img src="https://github.com/sanikantv/m3-expressive-paywall/actions/workflows/build.yml/badge.svg" alt="Build" /></a>
   <a href="https://jitpack.io/#sanikantv/m3-expressive-paywall"><img src="https://jitpack.io/v/sanikantv/m3-expressive-paywall.svg" alt="JitPack" /></a>
@@ -36,12 +38,12 @@ and install it on any Android 8.0+ device. The demo uses fake prices and never c
 
 ## The 6 designs
 
-| 1. Classic plans | 2. Free vs Pro | 3. Trial timeline |
+| [1. Classic plans](https://paywall.sanikant.dev/components/classic-plans-paywall/) | [2. Free vs Pro](https://paywall.sanikant.dev/components/comparison-paywall/) | [3. Trial timeline](https://paywall.sanikant.dev/components/trial-timeline-paywall/) |
 |:---:|:---:|:---:|
 | <img src="art/screenshots/01-classic-light.png" width="240" alt="Classic plans paywall, light" /> | <img src="art/screenshots/02-comparison-light.png" width="240" alt="Free vs Pro comparison paywall, light" /> | <img src="art/screenshots/03-trial-light.png" width="240" alt="Trial timeline paywall, light" /> |
 | Hero, plan cards with a morphing radio, a "Best value" badge and features. | Comparison grid with a highlighted Pro column and check and cross icons. | "Today, Day 5 reminder, Day 7 billing" steps that build trust. |
 
-| 4. Plan picker | 5. Limited-time offer | 6. Onboarding end |
+| [4. Plan picker](https://paywall.sanikant.dev/components/plan-picker-paywall/) | [5. Limited-time offer](https://paywall.sanikant.dev/components/limited-offer-sheet/) | [6. Onboarding end](https://paywall.sanikant.dev/components/onboarding-paywall/) |
 |:---:|:---:|:---:|
 | <img src="art/screenshots/04-picker-light.png" width="240" alt="Plan picker paywall with button group, light" /> | <img src="art/screenshots/05-offer-light.png" width="240" alt="Limited-time offer bottom sheet, light" /> | <img src="art/screenshots/06-onboarding-light.png" width="240" alt="Onboarding carousel paywall, light" /> |
 | Connected `ButtonGroup`; the spotlight card morphs and the price rolls. | Discount sheet with a live countdown and a wavy progress bar. | Benefits carousel that ends in the plan selection. |
@@ -66,19 +68,22 @@ and install it on any Android 8.0+ device. The demo uses fake prices and never c
 
 ## Google Play compliance built in
 
-The templates follow Google Play's subscription rules. Many paywall samples skip these items;
-here a shared footer puts them on every screen, so you can't forget one:
+The templates follow Google Play's subscription rules: the price, billing period, trial terms
+and auto-renewal are shown next to the button for the selected plan. Many paywall samples skip
+these items; here a shared footer puts them on every screen, so you can't forget one:
 
 - [x] **Price** of the selected plan, from your store data
 - [x] **Billing period** ("per month", "per year", "one-time")
 - [x] **Trial terms**: "7-day free trial, then $29.99 per year"
 - [x] **Auto-renew disclosure**: "Renews automatically until canceled. Cancel anytime in Google Play."
-- [x] **Restore** button
-- [x] **Terms** and **Privacy** links
+- [x] **Restore** button, plus **Terms** and **Privacy** links (good practice; Google's policy page
+      doesn't name them, but users and other stores expect them)
 
 One-time plans (`isSubscription = false`) get a "no subscription, no renewals" line instead.
 Read Google's [subscription policy](https://support.google.com/googleplay/android-developer/answer/9900533)
-before you ship. You are responsible for the final copy and prices in your app.
+before you ship, or the checklist in
+[Google Play subscription paywall requirements](https://paywall.sanikant.dev/guides/google-play-subscription-paywall-requirements/).
+You are responsible for the final copy and prices in your app.
 
 ## Setup
 
@@ -174,59 +179,98 @@ See [Type.kt](app/src/main/java/dev/sanikant/m3/paywall/demo/ui/theme/Type.kt).
 
 ## Connect your billing
 
-The library only needs formatted strings, so mapping is a few lines. Two sketches:
+The library only needs formatted strings, so mapping is a few lines. Both examples are compiled
+against the library in [`docs-snippets/`](docs-snippets/); the full step-by-step guides are on the
+docs site.
 
 <details>
-<summary><b>Google Play Billing</b></summary>
+<summary><b>Google Play Billing 9</b> · <a href="https://paywall.sanikant.dev/guides/connect-paywall-google-play-billing/">full guide</a></summary>
 
 ```kotlin
-// productDetails comes from billingClient.queryProductDetails(...)
-val plans = productDetails.subscriptionOfferDetails.orEmpty().map { offer ->
-    val phases = offer.pricingPhases.pricingPhaseList
-    val base = phases.last()
-    PaywallPlan(
-        id = offer.offerToken,
-        title = if (base.billingPeriod == "P1Y") "Yearly" else "Monthly",
-        price = base.formattedPrice,
-        period = if (base.billingPeriod == "P1Y") "per year" else "per month",
-        trialText = phases.firstOrNull { it.priceAmountMicros == 0L }?.let { "Free trial" },
-    )
+/** One PaywallPlan per base plan or offer. The offer token becomes the plan id. */
+fun ProductDetails.toPaywallPlans(): List<PaywallPlan> =
+    subscriptionOfferDetails.orEmpty().map { offer ->
+        val phases = offer.pricingPhases.pricingPhaseList
+        val recurring = phases.last()                            // the price after any trial or intro phase
+        val freeTrial = phases.firstOrNull { it.priceAmountMicros == 0L }
+        val yearly = recurring.billingPeriod == "P1Y"
+        PaywallPlan(
+            id = offer.offerToken,
+            title = if (yearly) "Yearly" else "Monthly",
+            price = recurring.formattedPrice,                    // already localized by Google Play
+            period = if (yearly) "per year" else "per month",
+            trialText = freeTrial?.let { "${isoPeriodToText(it.billingPeriod)} free trial" },
+            badge = if (yearly) "Best value" else null,
+        )
+    }
+
+/** "P7D" -> "7-day", "P1M" -> "1-month". Google Play uses ISO 8601 periods. */
+fun isoPeriodToText(iso: String): String {
+    val match = Regex("P(\\d+)([DWMY])").find(iso) ?: return iso
+    val (amount, unit) = match.destructured
+    val word = when (unit) { "D" -> "day"; "W" -> "week"; "M" -> "month"; else -> "year" }
+    return "$amount-$word"
 }
 
-onPurchase = { plan ->
-    val params = BillingFlowParams.ProductDetailsParams.newBuilder()
-        .setProductDetails(productDetails)
+fun launchPurchase(
+    activity: Activity,
+    billingClient: BillingClient,
+    product: ProductDetails,
+    plan: PaywallPlan,
+): BillingResult {
+    val productParams = BillingFlowParams.ProductDetailsParams.newBuilder()
+        .setProductDetails(product)
         .setOfferToken(plan.id)
         .build()
-    billingClient.launchBillingFlow(activity, BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(params)).build())
+    val flowParams = BillingFlowParams.newBuilder()
+        .setProductDetailsParamsList(listOf(productParams))
+        .build()
+    return billingClient.launchBillingFlow(activity, flowParams)
 }
 ```
 
 </details>
 
 <details>
-<summary><b>RevenueCat</b></summary>
+<summary><b>RevenueCat 10</b> · <a href="https://paywall.sanikant.dev/guides/connect-paywall-revenuecat/">full guide</a></summary>
 
 ```kotlin
-// Keep your RevenueCat API key in local.properties and read it through BuildConfig. Never commit it.
-Purchases.sharedInstance.getOfferingsWith { offerings ->
-    val packages = offerings.current?.availablePackages.orEmpty()
-    plans = packages.map { pkg ->
-        PaywallPlan(
-            id = pkg.identifier,
-            title = pkg.packageType.name.lowercase().replaceFirstChar { it.uppercase() },
-            price = pkg.product.price.formatted,
-            period = pkg.product.period?.let { "per ${it.unit.name.lowercase()}" } ?: "one-time",
-            isSubscription = pkg.product.period != null,
-        )
-    }
+fun Package.toPaywallPlan(): PaywallPlan = PaywallPlan(
+    id = identifier,
+    title = when (packageType) {
+        PackageType.ANNUAL -> "Yearly"
+        PackageType.MONTHLY -> "Monthly"
+        PackageType.LIFETIME -> "Lifetime"
+        else -> product.title
+    },
+    price = product.price.formatted,
+    period = product.period?.let { "per ${it.unit.name.lowercase()}" } ?: "one-time",
+    trialText = product.defaultOption?.freePhase?.billingPeriod?.let { "${it.value}-${it.unit.word()} free trial" },
+    badge = if (packageType == PackageType.ANNUAL) "Best value" else null,
+    isSubscription = product.period != null,
+)
+
+private fun Period.Unit.word(): String = name.lowercase()
+
+fun purchase(activity: Activity, packages: List<Package>, plan: PaywallPlan, onUnlocked: () -> Unit) {
+    val pkg = packages.first { it.identifier == plan.id }
+    Purchases.sharedInstance.purchaseWith(
+        PurchaseParams.Builder(activity, pkg).build(),
+        onError = { error, userCancelled -> if (!userCancelled) println(error.message) },
+        onSuccess = { _, customerInfo ->
+            if (customerInfo.entitlements["pro"]?.isActive == true) onUnlocked()
+        },
+    )
 }
 
-onPurchase = { plan ->
-    val pkg = packages.first { it.identifier == plan.id }
-    Purchases.sharedInstance.purchaseWith(PurchaseParams.Builder(activity, pkg).build()) { _, _ -> /* unlock */ }
+fun restore(onUnlocked: () -> Unit) {
+    Purchases.sharedInstance.restorePurchasesWith(
+        onError = { error -> println(error.message) },
+        onSuccess = { customerInfo ->
+            if (customerInfo.entitlements["pro"]?.isActive == true) onUnlocked()
+        },
+    )
 }
-onRestore = { Purchases.sharedInstance.restorePurchasesWith { /* refresh entitlements */ } }
 ```
 
 </details>
@@ -267,6 +311,8 @@ app/       the demo: gallery, settings sheet (theme, dynamic color, motion), fak
 art/       icon, screenshots, hero GIF, social preview
 scripts/   capture.sh (screenshots), record_hero.sh (GIF), make_icon.py + render_icon.sh
 docs/      PAYWALL_CATALOG.md for humans and AI agents
+docs-snippets/  every code sample on the docs site, compiled on each build (not published)
+site/      the docs site (Astro + Starlight) deployed to paywall.sanikant.dev, see site/DEPLOY.md
 ```
 
 Rebuild the screenshots with `ANDROID_SERIAL=emulator-5554 ./scripts/capture.sh`.

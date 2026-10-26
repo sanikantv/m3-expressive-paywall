@@ -1,0 +1,19 @@
+---
+// Renders the page's `faq` frontmatter. The same data becomes FAQPage JSON-LD in route-data.ts.
+const faq = (Astro.locals.starlightRoute.entry.data as { faq?: { q: string; a: string }[] }).faq ?? [];
+interface Props {
+  heading?: boolean;
+}
+const { heading = true } = Astro.props;
+const slug = (q: string) => q.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+{heading && faq.length > 0 && <h2 id="faq">FAQ</h2>}
+{
+  faq.map(({ q, a }) => (
+    <>
+      <h3 id={slug(q)}>{q}</h3>
+      <p set:html={a} />
+    </>
+  ))
+}

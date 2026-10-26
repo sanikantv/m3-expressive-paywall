@@ -1,0 +1,65 @@
+---
+title: Countdown timer in Jetpack Compose
+description: Make a countdown timer in Jetpack Compose with produceState that ticks on the second, survives recomposition and drives a Material 3 LinearWavyProgressIndicator.
+sidebar:
+  order: 6
+faq:
+  - q: Why produceState instead of a LaunchedEffect and mutableStateOf?
+    a: produceState is the same idea in one call - a coroutine that writes to State - and it restarts automatically when its key (the end time) changes.
+  - q: Why compute from an end timestamp instead of counting down from 15 minutes?
+    a: A fixed end time stays correct after recomposition, configuration changes and process death (if you store it). Counting down from a duration drifts and resets.
+  - q: Which material3 version has LinearWavyProgressIndicator?
+    a: It is part of the Material 3 Expressive APIs in androidx.compose.material3 1.5.0 (this site uses 1.5.0-beta02) and needs ExperimentalMaterial3ExpressiveApi opt-in.
+---
+
+import Snippet from '../../../components/Snippet.astro';
+import DemoVideo from '../../../components/DemoVideo.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** store the end time as a timestamp, and use `produceState` to compute the
+remaining milliseconds once per second, aligned to the second boundary. Format it as `mm:ss` and
+feed `remaining / total` into `LinearWavyProgressIndicator`, animated so it glides between ticks.
+
+## The timer state
+
+<Snippet file="Countdown.kt" region="countdown-state" title="rememberRemainingMillis.kt" />
+
+Three details make this robust:
+
+- It reads the clock instead of subtracting one each second, so it never drifts.
+- `delay(1_000 - now % 1_000)` lines ticks up with real seconds, so the display never skips a number.
+- It stops at zero; the `while` ends and no coroutine keeps running.
+
+## The UI with a wavy progress bar
+
+<Snippet file="Countdown.kt" region="countdown-ui" title="OfferCountdown.kt" />
+
+`animateFloatAsState` with a 1-second linear tween makes the bar move smoothly instead of jumping once per tick.
+
+## Ready-made: LimitedOfferSheet
+
+The [limited-time offer sheet](/components/limited-offer-sheet/) wraps this pattern in a paywall,
+with the discount, struck-through price and Google Play disclosure:
+
+<Snippet file="Components.kt" region="offer-usage" />
+
+<DemoVideo />
+
+## Common mistakes
+
+- **Fake deadlines.** Resetting the timer on every launch creates false urgency, which consumer
+  protection rules forbid. Store the real end time, for example in DataStore.
+- **Reading time in composition.** Calling `System.currentTimeMillis()` directly in a composable
+  doesn't trigger recomposition. Keep it inside the state producer.
+- **Screen readers.** A number changing every second is noisy. Give the timer one content
+  description, such as "Offer ends in 12 minutes 30 seconds".
+
+## Related
+
+- [Limited-time offer sheet](/components/limited-offer-sheet/)
+- [Shape morphing with MaterialShapes](/guides/shape-morphing-material-shapes-compose/)
+
+<PageFaq />
+
+<GuideEnd />

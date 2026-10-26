@@ -1,0 +1,133 @@
+---
+title: Material 3 Expressive paywalls for Jetpack Compose
+description: Six ready-to-use Jetpack Compose paywall screens built with Material 3 Expressive. Google Play subscription disclosures built in, light and dark, works with Play Billing or RevenueCat.
+template: splash
+editUrl: false
+lastUpdated: false
+hero:
+  title: Material 3 Expressive paywalls for Jetpack Compose
+  tagline: Six subscription screens with springy motion, shape morphing and the Google Play disclosures already in place. Pass your plans, get callbacks, keep your own billing.
+  image:
+    html: |
+      <figure class="demo-video" data-video="/media/hero-demo"><img src="/media/hero-poster.webp" width="270" height="600" alt="Demo: the plan picker morphs between plans, predictive back returns to the gallery, and the limited-time offer sheet counts down" fetchpriority="high" /><noscript><img src="/media/hero-demo.gif" width="270" height="600" alt="Demo of the paywall templates" /></noscript></figure>
+  actions:
+    - text: Get started
+      link: /getting-started/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/sanikantv/m3-expressive-paywall
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard, LinkButton } from '@astrojs/starlight/components';
+import Install from '../../components/Install.astro';
+import Snippet from '../../components/Snippet.astro';
+
+<p class="badges">
+  <a href="https://github.com/sanikantv/m3-expressive-paywall"><img src="https://img.shields.io/github/stars/sanikantv/m3-expressive-paywall?style=flat&label=GitHub%20stars&color=6750A4" alt="GitHub stars" height="20" /></a>{' '}
+  <a href="https://jitpack.io/#sanikantv/m3-expressive-paywall"><img src="https://jitpack.io/v/sanikantv/m3-expressive-paywall.svg" alt="JitPack version" height="20" /></a>{' '}
+  <img src="https://img.shields.io/badge/material3-1.5.0--beta02-6750A4" alt="material3 1.5.0-beta02" height="20" />{' '}
+  <img src="https://img.shields.io/badge/license-MIT-3DDC84" alt="MIT license" height="20" />
+</p>
+
+Add one line to your app module (JitPack, minSdk 26):
+
+<Install only="dependency" />
+
+## Why this library
+
+<CardGrid>
+  <Card title="material3 gives you parts, not a paywall" icon="puzzle">
+    Compose has buttons, cards and sheets. A paywall also needs plan selection, a trial
+    explanation, the auto-renew text and a restore path. These templates put all of that on
+    one screen, already wired together.
+  </Card>
+  <Card title="Expressive, without the research" icon="rocket">
+    `ButtonGroup`, `MaterialShapes` morphing, `LinearWavyProgressIndicator` and spring motion
+    are new in material3 1.5. The paywalls use them, so you see working examples instead of
+    API reference pages.
+  </Card>
+  <Card title="Disclosures come with every screen" icon="approve-check">
+    The price, billing period, trial terms and auto-renew line sit next to the button, which
+    is what [Google Play's subscription policy](/guides/google-play-subscription-paywall-requirements/)
+    asks for. Restore, Terms and Privacy links are in the same footer.
+  </Card>
+  <Card title="No billing lock-in" icon="setting">
+    Each paywall takes a list of `PaywallPlan`s and three callbacks. Connect it to
+    [Google Play Billing](/guides/connect-paywall-google-play-billing/),
+    [RevenueCat](/guides/connect-paywall-revenuecat/) or your own backend. No API keys, no dashboard.
+  </Card>
+</CardGrid>
+
+## Quick start
+
+Add [JitPack and the dependency](/getting-started/), then show a paywall:
+
+<Snippet file="QuickStart.kt" region="quick-start" title="UpgradeScreen.kt" />
+
+Prices are strings, so you pass the localized price from the store. Every snippet on this
+site is compiled against the library on each build.
+
+## Six designs
+
+<div class="gallery">
+  <a href="/components/classic-plans-paywall/">
+    <img src="/media/screens/01-classic-light.webp" width="540" height="1200" alt="Classic plans paywall with monthly, yearly and lifetime cards" loading="lazy" decoding="async" />
+    <strong>Classic plans</strong>
+    <span>Hero, plan cards with a "Best value" badge, features.</span>
+  </a>
+  <a href="/components/comparison-paywall/">
+    <img src="/media/screens/02-comparison-light.webp" width="540" height="1200" alt="Free vs Pro comparison table paywall" loading="lazy" decoding="async" />
+    <strong>Free vs Pro table</strong>
+    <span>A comparison grid with a highlighted Pro column.</span>
+  </a>
+  <a href="/components/trial-timeline-paywall/">
+    <img src="/media/screens/03-trial-light.webp" width="540" height="1200" alt="Free trial timeline paywall showing today, reminder day and billing day" loading="lazy" decoding="async" />
+    <strong>Trial timeline</strong>
+    <span>Today, reminder, billing. Trust for free trials.</span>
+  </a>
+  <a href="/components/plan-picker-paywall/">
+    <img src="/media/screens/04-picker-light.webp" width="540" height="1200" alt="Plan picker paywall with a connected button group" loading="lazy" decoding="async" />
+    <strong>Plan picker</strong>
+    <span>Connected button group with a morphing card.</span>
+  </a>
+  <a href="/components/limited-offer-sheet/">
+    <img src="/media/screens/05-offer-light.webp" width="540" height="1200" alt="Limited-time offer bottom sheet with countdown and wavy progress" loading="lazy" decoding="async" />
+    <strong>Limited-time offer</strong>
+    <span>Discount sheet, countdown, wavy progress bar.</span>
+  </a>
+  <a href="/components/onboarding-paywall/">
+    <img src="/media/screens/06-onboarding-light.webp" width="540" height="1200" alt="Onboarding carousel that ends in plan selection" loading="lazy" decoding="async" />
+    <strong>Onboarding end</strong>
+    <span>Benefit pages that end in the plan selection.</span>
+  </a>
+</div>
+
+## Guides
+
+<CardGrid>
+  <LinkCard title="How to build a paywall in Jetpack Compose" href="/guides/how-to-build-a-paywall-jetpack-compose/" description="From a plain material3 screen to a complete, Play-ready paywall." />
+  <LinkCard title="Google Play subscription paywall requirements" href="/guides/google-play-subscription-paywall-requirements/" description="What Play's policy asks a subscription screen to show, as a checklist." />
+  <LinkCard title="Connect a paywall to Google Play Billing" href="/guides/connect-paywall-google-play-billing/" description="Map ProductDetails offers to plans and launch the purchase flow." />
+  <LinkCard title="Connect a paywall to RevenueCat" href="/guides/connect-paywall-revenuecat/" description="Use RevenueCat Offerings with your own Compose paywall UI." />
+  <LinkCard title="Countdown timer in Jetpack Compose" href="/guides/countdown-timer-jetpack-compose/" description="A ticking offer timer with LinearWavyProgressIndicator." />
+  <LinkCard title="Shape morphing with MaterialShapes" href="/guides/shape-morphing-material-shapes-compose/" description="Use and animate Material 3 Expressive shapes in Compose." />
+</CardGrid>
+
+[See all guides](/guides/)
+
+## Common questions
+
+- **Does it work with stable material3?** It needs `1.5.0-beta02` or newer, because the Expressive APIs it uses are not in 1.4. [Read the FAQ](/faq/#does-it-work-with-stable-material3)
+- **Do I need RevenueCat or another SDK?** No. Any billing source works, as long as you can turn its products into `PaywallPlan`s. [Read the FAQ](/faq/#do-i-need-revenuecat-or-another-billing-sdk)
+- **Does it support dark mode and dynamic color?** Yes. Every color comes from your `MaterialTheme`. [Read the FAQ](/faq/#does-it-support-dark-mode-and-dynamic-color)
+- **Is it free for commercial apps?** Yes, it is MIT licensed. [Read the FAQ](/faq/#is-it-free-for-commercial-apps)
+
+## Ship your paywall today
+
+<Install only="dependency" />
+
+<LinkButton href="/getting-started/" icon="right-arrow">Get started</LinkButton>{' '}
+<LinkButton href="https://github.com/sanikantv/m3-expressive-paywall" variant="secondary" icon="github">Star on GitHub</LinkButton>{' '}
+<LinkButton href="https://t.me/Techno_Sanikant" variant="minimal" icon="telegram">Join updates on Telegram</LinkButton>

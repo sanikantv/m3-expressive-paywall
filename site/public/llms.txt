@@ -1,0 +1,39 @@
+# M3 Expressive Paywall
+
+> Six ready-to-use Material 3 Expressive paywall screens for Jetpack Compose (Android). Billing-agnostic: each paywall takes a list of PaywallPlan plus onPurchase, onRestore and onClose callbacks, and shows the price, billing period, trial terms and auto-renew text Google Play's subscription policy asks for. MIT license.
+
+Install (JitPack): add `maven("https://jitpack.io")`, then `implementation("com.github.sanikantv:m3-expressive-paywall:v1.0.0")`. Requires minSdk 26 and compileSdk 37; brings androidx.compose.material3 1.5.0-beta02.
+
+## Docs
+
+- [Getting started](https://paywall.sanikant.dev/getting-started/): install, first paywall, theming
+- [All designs](https://paywall.sanikant.dev/components/): overview of the six paywalls
+- [PaywallPlan and models](https://paywall.sanikant.dev/components/paywall-plan/): data classes and disclosure text
+- [FAQ](https://paywall.sanikant.dev/faq/)
+- [Comparison](https://paywall.sanikant.dev/comparison/): vs building it yourself, RevenueCat Paywalls, Superwall, Adapty, Qonversion
+- [API reference](https://paywall.sanikant.dev/api/): Dokka
+
+## Paywalls
+
+- [ClassicPlansPaywall](https://paywall.sanikant.dev/components/classic-plans-paywall/): hero, plan cards with badge, features
+- [ComparisonPaywall](https://paywall.sanikant.dev/components/comparison-paywall/): Free vs Pro table
+- [TrialTimelinePaywall](https://paywall.sanikant.dev/components/trial-timeline-paywall/): Today, reminder, billing timeline
+- [PlanPickerPaywall](https://paywall.sanikant.dev/components/plan-picker-paywall/): connected ToggleButton group, morphing card
+- [LimitedOfferSheet](https://paywall.sanikant.dev/components/limited-offer-sheet/): discount bottom sheet, countdown, wavy progress
+- [OnboardingPaywall](https://paywall.sanikant.dev/components/onboarding-paywall/): benefits pager ending in plans
+
+## Guides
+
+- [How to build a paywall in Jetpack Compose](https://paywall.sanikant.dev/guides/how-to-build-a-paywall-jetpack-compose/)
+- [Google Play subscription paywall requirements](https://paywall.sanikant.dev/guides/google-play-subscription-paywall-requirements/)
+- [Connect a paywall to Google Play Billing](https://paywall.sanikant.dev/guides/connect-paywall-google-play-billing/)
+- [Connect a paywall to RevenueCat](https://paywall.sanikant.dev/guides/connect-paywall-revenuecat/)
+- [Free trial paywall](https://paywall.sanikant.dev/guides/free-trial-paywall-jetpack-compose/)
+- [Countdown timer in Jetpack Compose](https://paywall.sanikant.dev/guides/countdown-timer-jetpack-compose/)
+- [Shape morphing with MaterialShapes](https://paywall.sanikant.dev/guides/shape-morphing-material-shapes-compose/)
+- [Connected button group](https://paywall.sanikant.dev/guides/connected-button-group-jetpack-compose/)
+
+## Optional
+
+- [Source code](https://github.com/sanikantv/m3-expressive-paywall)
+- [More libraries by the author](https://sanikant.dev)

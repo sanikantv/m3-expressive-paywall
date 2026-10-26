@@ -1,0 +1,60 @@
+---
+title: Connected button group in Jetpack Compose
+description: Build a Material 3 Expressive connected button group in Jetpack Compose with ToggleButton and ButtonGroupDefaults connected shapes, for single-choice options like plan selection.
+sidebar:
+  order: 8
+faq:
+  - q: Should I use the ButtonGroup composable or a Row?
+    a: ButtonGroup handles overflow menus and press animations between neighbors. For a fixed, single-choice selector like plans or theme modes, a Row with ButtonGroupDefaults.ConnectedSpaceBetween and connected shapes is simpler.
+  - q: How do I make it single choice?
+    a: Keep one selected index in state, set checked = index == selected, and give each button Role.RadioButton semantics so TalkBack announces it as a choice.
+  - q: Which material3 version has ToggleButton?
+    a: The Material 3 Expressive toggle and button group APIs are in androidx.compose.material3 1.5.0 (this site uses 1.5.0-beta02).
+---
+
+import Snippet from '../../../components/Snippet.astro';
+import Screens from '../../../components/Screens.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** put `ToggleButton`s in a `Row` spaced by
+`ButtonGroupDefaults.ConnectedSpaceBetween`, and give the first, middle and last buttons
+`connectedLeadingButtonShapes()`, `connectedMiddleButtonShapes()` and
+`connectedTrailingButtonShapes()`. The outer corners stay round, the inner corners stay tight,
+and the checked button turns into a pill.
+
+## The code
+
+<Snippet file="ButtonGroup.kt" region="connected-group" title="ConnectedChoice.kt" />
+
+## What each part does
+
+- **`ConnectedSpaceBetween`**: the small, standard gap between connected buttons.
+- **Connected shapes**: each `ToggleButtonShapes` has a normal, pressed and checked shape, so
+  the button animates its corners when pressed and when checked.
+- **`Role.RadioButton`**: the group is single-choice, so TalkBack should say "radio button,
+  selected" instead of "toggle button, on".
+- **`weight(1f)`**: equal widths make the group look like one control.
+
+## Where you'll see it
+
+The [plan picker paywall](/components/plan-picker-paywall/) uses this exact pattern for
+Monthly / Yearly / Lifetime, and the demo app's settings sheet uses it for
+System / Light / Dark.
+
+<Screens name="04-picker" alt="Connected button group switching between Monthly, Yearly and Lifetime" />
+
+## Common mistakes
+
+- Using the same shapes for every button: you lose the connected look.
+- Labels that are too long: three short words fit a phone screen; four long ones don't.
+- Forgetting the semantics role, so screen readers announce checkboxes.
+
+## Related
+
+- [Plan picker paywall](/components/plan-picker-paywall/)
+- [Shape morphing with MaterialShapes](/guides/shape-morphing-material-shapes-compose/)
+
+<PageFaq />
+
+<GuideEnd />

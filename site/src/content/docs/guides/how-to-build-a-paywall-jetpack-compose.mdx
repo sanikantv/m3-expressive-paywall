@@ -1,0 +1,94 @@
+---
+title: How to build a paywall in Jetpack Compose
+description: Build a subscription paywall screen in Jetpack Compose step by step - plan selection, purchase button and the Google Play disclosures - with plain material3 or a ready-made template.
+sidebar:
+  order: 1
+faq:
+  - q: Do I need a paywall SDK to show a paywall in Compose?
+    a: No. A paywall is a normal Compose screen. You only need a billing library (Google Play Billing, or a service like RevenueCat) to load prices and run the purchase.
+  - q: Should prices be hard-coded in the paywall?
+    a: No. Load the localized price from the store (for example ProductDetails.formattedPrice) and pass it to the UI. Hard-coded prices are wrong in other countries and currencies.
+  - q: Where should the paywall live in my navigation?
+    a: Treat it as its own destination (or a bottom sheet) that returns a result. Keep billing in a ViewModel or repository and give the screen only plans and callbacks.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Snippet from '../../../components/Snippet.astro';
+import Screens from '../../../components/Screens.astro';
+import PageFaq from '../../../components/PageFaq.astro';
+import GuideEnd from '../../../components/GuideEnd.astro';
+
+**Short answer:** a Compose paywall is a screen with three jobs. It lets the user pick a plan,
+starts the purchase for that plan, and shows the price, billing period, trial terms and renewal
+information next to the button. Keep billing out of the UI: give the screen a list of plans and
+callbacks, and run the purchase in your billing layer.
+
+## The problem
+
+Material 3 gives you cards, radio buttons and buttons, but no "paywall". Most first versions
+miss something: a radio group TalkBack can't read, a price that ignores currency, or the
+auto-renew line Google Play expects. The layout is the easy part; the details are what get
+apps rejected or refunded.
+
+## Without a library: a plain material3 paywall
+
+This is a complete, minimal paywall with only `androidx.compose.material3`. Start from a simple
+model:
+
+<Snippet file="FromScratch.kt" region="scratch-model" />
+
+Then the screen. The plans are a `selectableGroup` with `Role.RadioButton`, and the disclosure
+sits right under the button:
+
+<Snippet file="FromScratch.kt" region="scratch-paywall" title="SimplePaywall.kt" />
+
+That covers the essentials. What it doesn't have: a hero, a badge, animation, a sticky button
+when the content scrolls, dark-mode tuning, and screens for trials, comparisons and offers.
+
+## With M3 Expressive Paywall
+
+<Steps>
+
+1. Add the dependency (see [Getting started](/getting-started/) for the JitPack setup).
+
+2. Describe your plans with `PaywallPlan`. The `id` is yours, so use the product ID, offer
+   token or package ID you need later to buy:
+
+   <Snippet file="SampleData.kt" region="plans" />
+
+3. Show a paywall and pass the callbacks:
+
+   <Snippet file="Components.kt" region="classic-usage" />
+
+4. Start the purchase in `onPurchase`. See the guides for
+   [Google Play Billing](/guides/connect-paywall-google-play-billing/) and
+   [RevenueCat](/guides/connect-paywall-revenuecat/).
+
+</Steps>
+
+## Result
+
+<Screens name="01-classic" alt="Classic plans paywall built with M3 Expressive Paywall" />
+
+Five more layouts take the same plans and callbacks, so you can switch designs, or A/B test
+them, without touching billing code. See [all six designs](/components/).
+
+## Tips and common mistakes
+
+- **Annual price first.** Show the real yearly price ($29.99 per year) as the main number and
+  the monthly equivalent as a detail. Google Play lists "annual plans shown mainly as a
+  monthly price" as a violation.
+- **One screen, no surprise steps.** The price and renewal terms must be visible where the user
+  taps Subscribe, not on a later screen.
+- **Restore matters.** Users who reinstall or change phones look for it.
+- **Test both themes and large fonts.** Make sure the disclosure still fits above the navigation bar.
+
+## Related
+
+- [Google Play subscription paywall requirements](/guides/google-play-subscription-paywall-requirements/)
+- [Free trial paywall in Jetpack Compose](/guides/free-trial-paywall-jetpack-compose/)
+- [Classic plans paywall](/components/classic-plans-paywall/)
+
+<PageFaq />
+
+<GuideEnd />

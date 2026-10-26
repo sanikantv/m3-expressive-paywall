@@ -1,0 +1,75 @@
+---
+title: PaywallPlan, PaywallFeature and other paywall models
+description: The data classes every M3 Expressive Paywall screen takes - PaywallPlan, PaywallFeature, PaywallLegal, ComparisonRow, TrialStep, BenefitPage - plus the bundled PaywallIcons.
+sidebar:
+  label: Models and icons
+  order: 7
+---
+
+import Snippet from '../../../components/Snippet.astro';
+
+All six paywalls share these small, immutable data classes from `dev.sanikant.m3.paywall`. They
+hold display strings only. The library never talks to a billing provider, so you map your
+store data into them.
+
+## PaywallPlan
+
+One purchasable option.
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `id` | `String` | required | Your identifier. Returned in `onPurchase` so you can find the real product, offer token or package. |
+| `title` | `String` | required | Short name, e.g. "Yearly". |
+| `price` | `String` | required | Formatted price from the store, e.g. "$29.99". |
+| `period` | `String` | required | Shown after the price: "per year", "per month", "one-time". |
+| `trialText` | `String?` | `null` | Trial terms, e.g. "7-day free trial". `null` means no trial. |
+| `badge` | `String?` | `null` | Highlight such as "Best value". The first badged plan is preselected. |
+| `priceDetail` | `String?` | `null` | Helper line, e.g. "$2.49/month, billed yearly". |
+| `isSubscription` | `Boolean` | `true` | `false` for one-time purchases. Changes the disclosure to "one-time payment, no renewals". |
+
+<Snippet file="SampleData.kt" region="plans" title="Monthly, yearly with trial, lifetime" />
+
+The disclosure under the button is built from these fields:
+
+- with `trialText`: "7-day free trial, then $29.99 per year. Renews automatically until canceled. Cancel anytime in Google Play."
+- subscription without trial: "$4.99 per month. Renews automatically until canceled. Cancel anytime in Google Play."
+- `isSubscription = false`: "$79.99 one-time payment. No subscription, no renewals."
+
+## PaywallFeature
+
+`PaywallFeature(title: String, description: String? = null, icon: ImageVector = PaywallIcons.Check)`, a benefit row.
+
+<Snippet file="SampleData.kt" region="features" />
+
+## PaywallLegal
+
+`PaywallLegal(termsUrl: String, privacyUrl: String)`, the links in every footer. They open through
+Compose's `LocalUriHandler`.
+
+<Snippet file="SampleData.kt" region="legal" />
+
+## ComparisonRow
+
+`ComparisonRow(label: String, free: Boolean, pro: Boolean = true, freeText: String? = null, proText: String? = null)`,
+a row of the [Free vs Pro table](/components/comparison-paywall/). Text replaces the check or cross icon when set.
+
+<Snippet file="SampleData.kt" region="comparison-rows" />
+
+## TrialStep
+
+`TrialStep(title: String, description: String, icon: ImageVector)`, a step of the
+[trial timeline](/components/trial-timeline-paywall/).
+
+## BenefitPage
+
+`BenefitPage(title: String, description: String, icon: ImageVector)`, a page of the
+[onboarding carousel](/components/onboarding-paywall/).
+
+## PaywallIcons
+
+A small set of Material icons (Apache 2.0) bundled so the library needs no icon dependency:
+`Check`, `Close`, `Remove`, `Sparkle`, `Star`, `Bolt`, `Bell`, `LockOpen`, `Cloud`, `Block`,
+`Shield`, `Calendar`, `Clock`, `Insights`, `Heart`, `Download`. Any `ImageVector` works too, for
+example from `material-icons-extended` or your own vector drawables via `ImageVector.vectorResource`.
+
+See the [API reference](/api/m3-expressive-paywall/dev.sanikant.m3.paywall/-paywall-plan/index.html) for the full signatures.
