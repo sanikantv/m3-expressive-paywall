@@ -1,7 +1,7 @@
 ---
 // Starlight's footer (edit link, last updated, pagination) plus project links.
 import Default from '@astrojs/starlight/components/Footer.astro';
-import { HUB, REPO, TELEGRAM } from '../lib/site';
+import { HUB, REPO } from '../lib/site';
 ---
 
 <Default />
@@ -9,7 +9,6 @@ import { HUB, REPO, TELEGRAM } from '../lib/site';
   <a href={`${REPO}/blob/main/LICENSE`}>MIT license</a>
   <a href={REPO}>GitHub</a>
   <a href="/changelog/">Changelog</a>
-  <a href={TELEGRAM}>Telegram updates</a>
   <a href={HUB}>More libraries from sanikant.dev</a>
 </nav>
 <p class="site-credit">

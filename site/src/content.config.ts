@@ -11,6 +11,8 @@ export const collections = {
       extend: z.object({
         // Questions rendered on the page and as FAQPage JSON-LD.
         faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
+        // Rendered as <meta name="keywords">. Taken from the keyword map in seo-report.md.
+        keywords: z.array(z.string()).optional(),
         // Optional per-page Open Graph image under /og/.
         ogImage: z.string().optional(),
       }),

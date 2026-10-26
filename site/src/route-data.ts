@@ -1,14 +1,19 @@
 // Adds per-page Open Graph images and JSON-LD. Starlight already writes title, description,
 // canonical, og:title/description/url/type and twitter:card from each page's frontmatter.
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
-import { AUTHOR, MATERIAL3, REPO, SITE_URL, VERSION } from './lib/site';
+import { AUTHOR, AUTHOR_NAME, HUB, MATERIAL3, REPO, SITE_URL, VERSION } from './lib/site';
 
 const SECTIONS: Record<string, string> = { components: 'Paywalls', guides: 'Guides' };
+const DEFAULT_KEYWORDS = ['jetpack compose paywall', 'material 3 expressive', 'compose subscription screen'];
 
 export const onRequest = defineRouteMiddleware((context) => {
   const route = context.locals.starlightRoute;
   const { entry, head, id } = route;
-  const data = entry.data as typeof entry.data & { faq?: { q: string; a: string }[]; ogImage?: string };
+  const data = entry.data as typeof entry.data & {
+    faq?: { q: string; a: string }[];
+    keywords?: string[];
+    ogImage?: string;
+  };
   const url = new URL(context.url.pathname, SITE_URL).href;
   const section = id.split('/')[0];
 
@@ -17,6 +22,9 @@ export const onRequest = defineRouteMiddleware((context) => {
     SITE_URL,
   ).href;
   head.push(
+    { tag: 'meta', attrs: { name: 'author', content: AUTHOR_NAME }, content: '' },
+    { tag: 'link', attrs: { rel: 'author', href: HUB }, content: '' },
+    { tag: 'meta', attrs: { name: 'keywords', content: (data.keywords ?? DEFAULT_KEYWORDS).join(', ') }, content: '' },
     { tag: 'meta', attrs: { property: 'og:image', content: ogImage }, content: '' },
     { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' }, content: '' },
     { tag: 'meta', attrs: { property: 'og:image:height', content: '630' }, content: '' },
@@ -48,6 +56,7 @@ export const onRequest = defineRouteMiddleware((context) => {
     });
   }
   if (section === 'guides') {
+    head.push({ tag: 'meta', attrs: { property: 'article:author', content: HUB }, content: '' });
     graph.push({
       '@type': 'TechArticle',
       headline: data.title,
@@ -56,6 +65,7 @@ export const onRequest = defineRouteMiddleware((context) => {
       author: AUTHOR,
       proficiencyLevel: 'Beginner',
       dependencies: `Jetpack Compose, androidx.compose.material3 ${MATERIAL3}`,
+      keywords: data.keywords,
     });
   }
   if (data.faq?.length) {

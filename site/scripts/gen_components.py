@@ -19,7 +19,7 @@ SHARED = [
 
 PAGES = [
     dict(
-        slug="classic-plans-paywall", name="ClassicPlansPaywall", label="Classic plans",
+        slug="classic-plans-paywall", keywords=['compose paywall plan cards', 'monthly yearly lifetime paywall', 'best value badge compose', 'subscription plans screen jetpack compose'], name="ClassicPlansPaywall", label="Classic plans",
         title="Classic plans paywall for Jetpack Compose",
         description="ClassicPlansPaywall: a Jetpack Compose paywall with a Material 3 Expressive hero, monthly, yearly and lifetime plan cards, a Best value badge and a features list.",
         screen="01-classic", alt="Classic plans paywall",
@@ -41,7 +41,7 @@ PAGES = [
         related=[("Trial timeline paywall", "/components/trial-timeline-paywall/"), ("PaywallPlan and models", "/components/paywall-plan/"), ("How to build a paywall in Jetpack Compose", "/guides/how-to-build-a-paywall-jetpack-compose/")],
     ),
     dict(
-        slug="comparison-paywall", name="ComparisonPaywall", label="Free vs Pro table",
+        slug="comparison-paywall", keywords=['free vs pro comparison table compose', 'paywall comparison table android', 'feature comparison jetpack compose'], name="ComparisonPaywall", label="Free vs Pro table",
         title="Free vs Pro comparison paywall for Jetpack Compose",
         description="ComparisonPaywall: a Jetpack Compose subscription screen with a Free vs Pro feature table, a highlighted Pro column, check and cross icons and side-by-side plan tiles.",
         screen="02-comparison", alt="Free vs Pro comparison paywall",
@@ -64,7 +64,7 @@ PAGES = [
         related=[("Classic plans paywall", "/components/classic-plans-paywall/"), ("Google Play subscription paywall requirements", "/guides/google-play-subscription-paywall-requirements/")],
     ),
     dict(
-        slug="trial-timeline-paywall", name="TrialTimelinePaywall", label="Trial timeline",
+        slug="trial-timeline-paywall", keywords=['free trial paywall compose', 'free trial timeline', 'trial reminder paywall android'], name="TrialTimelinePaywall", label="Trial timeline",
         title="Free trial timeline paywall for Jetpack Compose",
         description="TrialTimelinePaywall: a Jetpack Compose free trial paywall that shows Today, a reminder day and the billing day as a timeline, with plan cards and Play disclosures.",
         screen="03-trial", alt="Trial timeline paywall",
@@ -91,7 +91,7 @@ the translated strings.
         related=[("Free trial paywall guide", "/guides/free-trial-paywall-jetpack-compose/"), ("Google Play subscription paywall requirements", "/guides/google-play-subscription-paywall-requirements/")],
     ),
     dict(
-        slug="plan-picker-paywall", name="PlanPickerPaywall", label="Plan picker",
+        slug="plan-picker-paywall", keywords=['compose plan picker', 'jetpack compose button group paywall', 'material 3 expressive toggle button', 'shape morph paywall'], name="PlanPickerPaywall", label="Plan picker",
         title="Plan picker paywall with a button group for Jetpack Compose",
         description="PlanPickerPaywall: a Material 3 Expressive paywall where a connected ButtonGroup of ToggleButtons switches plans and the spotlight card morphs its shape and rolls the price.",
         screen="04-picker", alt="Plan picker paywall",
@@ -112,7 +112,7 @@ the translated strings.
         related=[("Connected button group guide", "/guides/connected-button-group-jetpack-compose/"), ("Shape morphing guide", "/guides/shape-morphing-material-shapes-compose/")],
     ),
     dict(
-        slug="limited-offer-sheet", name="LimitedOfferSheet", label="Limited-time offer",
+        slug="limited-offer-sheet", keywords=['limited time offer bottom sheet compose', 'discount paywall android', 'jetpack compose bottom sheet material 3', 'countdown paywall'], name="LimitedOfferSheet", label="Limited-time offer",
         title="Limited-time offer bottom sheet for Jetpack Compose",
         description="LimitedOfferSheet: a Material 3 modal bottom sheet paywall with a discount badge, struck-through price, live countdown and LinearWavyProgressIndicator for Jetpack Compose.",
         screen="05-offer", alt="Limited-time offer bottom sheet",
@@ -143,7 +143,7 @@ the translated strings.
         related=[("Countdown timer guide", "/guides/countdown-timer-jetpack-compose/"), ("Classic plans paywall", "/components/classic-plans-paywall/")],
     ),
     dict(
-        slug="onboarding-paywall", name="OnboardingPaywall", label="Onboarding end",
+        slug="onboarding-paywall", keywords=['jetpack compose onboarding screen', 'onboarding paywall android', 'horizontal pager onboarding compose'], name="OnboardingPaywall", label="Onboarding end",
         title="Onboarding paywall carousel for Jetpack Compose",
         description="OnboardingPaywall: a Jetpack Compose onboarding carousel of benefit pages that ends in Material 3 Expressive plan selection, with skip, page indicator and Play disclosures.",
         screen="06-onboarding", alt="Onboarding paywall",
@@ -184,6 +184,7 @@ def page(p, order):
     return f"""---
 title: {json.dumps(p['title'])}
 description: {json.dumps(p['description'])}
+keywords: {json.dumps(p['keywords'])}
 sidebar:
   label: {json.dumps(p['label'])}
   order: {order}

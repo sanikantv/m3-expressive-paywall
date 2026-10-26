@@ -69,6 +69,11 @@ Built 2026-10-26. Research details and raw autocomplete data: [../library.md](..
 
 - Canonical, Open Graph (title, description, url, type, image 1200×630) and Twitter card tags on
   every page. Four OG cards: home, components, guides, docs.
+- \`<meta name="author" content="Sanikant">\` and \`<link rel="author" href="https://sanikant.dev">\` on
+  every page, \`article:author\` on guides.
+- \`<meta name="keywords">\` per page from the \`keywords\` frontmatter (the lists in the table above).
+  Google ignores this tag for ranking; it is kept for other engines and tools.
+- Google Search Console ownership tag (\`google-site-verification\`) on every page.
 - One H1 per page; checked by `npm run check`.
 - `sitemap-index.xml` (22 URLs, 404 excluded) referenced from `robots.txt`; `llms.txt` at the root.
 - JSON-LD: `SoftwareSourceCode` with a `Person` author on home, `BreadcrumbList` on inner pages,
@@ -81,7 +86,7 @@ Built 2026-10-26. Research details and raw autocomplete data: [../library.md](..
 
 | Page | Performance | Accessibility | Best practices | SEO |
 |---|:-:|:-:|:-:|:-:|
-| / | 100 | 100 | 100 | 100 |
+| / | 96 | 100 | 100 | 100 |
 | /components/ | 100 | 100 | 100 | 100 |
 | /getting-started/ | 100 | 100 | 100 | 100 |
 | /components/limited-offer-sheet/ | 100 | 100 | 100 | 100 |
@@ -96,7 +101,7 @@ Google Sans Flex loads from Google Fonts with `display=optional` (no layout shif
 
 Home → Getting started, all six designs, guides, FAQ answers. Each design → related designs and
 guides + its Dokka page. Each guide → related guides and designs + install CTA + "star on GitHub".
-FAQ → the page with the full answer. Footer → hub (sanikant.dev), GitHub, changelog, Telegram.
+FAQ → the page with the full answer. Footer → hub (sanikant.dev), GitHub, changelog.
 
 ## Recommended next guides
 

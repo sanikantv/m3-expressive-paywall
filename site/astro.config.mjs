@@ -14,7 +14,6 @@ export default defineConfig({
       favicon: '/favicon.svg',
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/sanikantv/m3-expressive-paywall' },
-        { icon: 'telegram', label: 'Telegram', href: 'https://t.me/Techno_Sanikant' },
       ],
       editLink: { baseUrl: 'https://github.com/sanikantv/m3-expressive-paywall/edit/main/site/' },
       lastUpdated: true,
@@ -26,16 +25,20 @@ export default defineConfig({
         PageTitle: './src/components/PageTitle.astro',
       },
       head: [
-        { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' } },
-        { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' } },
-        // Google Sans Flex, loaded without blocking the first paint.
+        // Google Search Console ownership (keep, even after verification).
+        {
+          tag: 'meta',
+          attrs: { name: 'google-site-verification', content: 'umeNRLlQKuAWDZaTioJXcfOPPrNz9d72Y4BkCPLYxlc' },
+        },
+        // Self-hosted Google Sans Flex (see src/styles/custom.css); preload the Latin file.
         {
           tag: 'link',
           attrs: {
-            rel: 'stylesheet',
-            href: 'https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&display=optional',
-            media: 'print',
-            onload: "this.media='all'",
+            rel: 'preload',
+            href: '/fonts/google-sans-flex-latin.woff2',
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: '',
           },
         },
         // Demo videos: the poster <img> paints first; after load, visible ones are swapped for a

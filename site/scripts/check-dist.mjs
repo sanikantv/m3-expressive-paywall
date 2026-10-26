@@ -36,7 +36,7 @@ for (const file of pages) {
     else map.set(value, route);
   }
   if (desc && (desc.length < 70 || desc.length > 200)) errors.push(`${route}: description is ${desc.length} chars`);
-  for (const tag of ['rel="canonical"', 'property="og:title"', 'property="og:description"', 'property="og:image"', 'name="twitter:card"']) {
+  for (const tag of ['rel="canonical"', 'property="og:title"', 'property="og:description"', 'property="og:image"', 'name="twitter:card"', 'name="author"', 'name="keywords"', 'name="google-site-verification"']) {
     if (!html.includes(tag)) errors.push(`${route}: missing ${tag}`);
   }
   for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
