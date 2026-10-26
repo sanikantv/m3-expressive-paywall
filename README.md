@@ -319,8 +319,10 @@ Rebuild the screenshots with `ANDROID_SERIAL=emulator-5554 ./scripts/capture.sh`
 
 ## Related
 
-Part of the [awesome-m3-expressive](https://github.com/sanikantv/awesome-m3-expressive) collection
-of Material 3 Expressive components and full-screen templates.
+- [Guides on paywall.sanikant.dev](https://paywall.sanikant.dev/guides/): Google Play subscription
+  rules, Play Billing, RevenueCat, countdowns, shape morphing and connected button groups in Compose.
+- More Material 3 Expressive screens and components are on the way. Follow
+  [@sanikantv on GitHub](https://github.com/sanikantv) to see them first.
 
 ## Built by
 
